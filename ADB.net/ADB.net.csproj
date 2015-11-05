@@ -45,6 +45,7 @@
     <Compile Include="AndroidDevice.cs" />
     <Compile Include="BatteryStatus.cs" />
     <Compile Include="CConsole.cs" />
+    <Compile Include="DeviceScreen.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

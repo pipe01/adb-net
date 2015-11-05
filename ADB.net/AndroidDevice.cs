@@ -167,17 +167,29 @@ namespace ADB.net
         public static Image TakeScreenshot()
         {
             bool fin = false;
+            bool sc = false;
             consoleSS.OutputReceived += (output, e) => {
-                if (output.Contains("100%"))
+                if (output.Contains("fin"))
+                    sc = true;
+                if (output.Contains("fin2"))
                     fin = true;
             };
-            consoleSS.ExecuteCommand("adb shell screencap -p /mnt/sdcard");
-            consoleSS.ExecuteCommand("adb pull -p /mnt/sdcard/sc.png ${0}", Path.Combine(Application.ExecutablePath, @"\media"));
+            consoleSS.ExecuteCommand("adb shell screencap -p /mnt/sdcard/sc.png; echo fin");
+
+            while (!sc)
+                Application.DoEvents();
+            
+            string cmd = "adb pull -p /mnt/sdcard/sc.png \"" + Path.GetDirectoryName(Application.ExecutablePath).Replace("\\","/") + "/media\" & echo fin2";
+            consoleSS.ExecuteCommand(cmd);
 
             while (!fin)
                 Application.DoEvents();
 
-            return Image.FromFile("./media/sc.png");
+            Image img = Image.FromStream(new MemoryStream(File.ReadAllBytes("./media/sc.png")));
+
+            File.Delete("./media/sc.png");
+
+            return img;
         }
     }
 }

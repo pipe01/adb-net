@@ -12,9 +12,9 @@ using PiConfig;
 
 namespace ADB_Helper
 {
-    public partial class frmMain : Form
+    public partial class btnScreenshot : Form
     {
-        public frmMain()
+        public btnScreenshot()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -160,6 +160,13 @@ namespace ADB_Helper
         private void button2_Click(object sender, EventArgs e)
         {
             new frmFileExplorer().Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            frmScreenshot frm = new frmScreenshot();
+            //frm.pictureBox1.BackgroundImage = AndroidDevice.TakeScreenshot();
+            frm.Show();
         }
 
         private void txbConnect_OKClicked(object sender, EventArgs e)
