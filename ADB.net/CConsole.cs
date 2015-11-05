@@ -16,8 +16,16 @@ namespace ADB.net
         public event OutputHandler OutputReceived;
         public delegate void OutputHandler(string output, EventArgs e);
         public EventArgs e = null;
-        public void ExecuteCommand(string command)
+        public void ExecuteCommand(string command, params string[] args)
         {
+            string com = command;
+            int i = 0;
+            foreach (string item in args)
+            {
+                com = com.Replace("${" + i + "}", args[i]);
+                i++;
+            }
+
             // Start the child process.
             Process p = new Process();
             // Redirect the output stream of the child process.

@@ -10,6 +10,11 @@ namespace ADB.net
     public class FileSystem
     {
         private static CConsole consoleFS1 = new CConsole();
+        /// <summary>
+        /// Checks if the indicated path is a directory
+        /// </summary>
+        /// <param name="filename">Path to check</param>
+        /// <returns></returns>
         public static bool IsDirectory(string filename)
         {
             bool ret, ex;
@@ -28,13 +33,22 @@ namespace ADB.net
                     ex = false;
                 }
             };
-            consoleFS1.ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
+            //consoleFS1.ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
+            consoleFS1.ExecuteCommand("adb shell [ -d \"${0}\" ] && echo \"yes\" || echo \"no\"", filename);
 
             while (!ret)
                 Application.DoEvents();
 
             return ex;
         }
+
+        /// <summary>
+        /// Lists all files and directories
+        /// </summary>
+        /// <param name="path">Directory to list</param>
+        /// <param name="recursive">Lists sub-directories</param>
+        /// <param name="sort">Sort the returned list by alphabetical order</param>
+        /// <returns></returns>
         public static List<string> GetAllEntries(string path, bool recursive = false, bool sort = true)
         {
             bool ret = false;

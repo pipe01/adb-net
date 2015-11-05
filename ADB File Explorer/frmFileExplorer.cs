@@ -31,8 +31,12 @@ namespace ADB_Helper
             foreach(string entry in entries)
             {
                 TreeNode node = tvFileTree.Nodes.Add(entry, entry);
-                if (FileSystem.IsDirectory(entry))
-                    node.Nodes.Add("Loading...");
+            }
+
+            foreach (TreeNode item in tvFileTree.Nodes)
+            {
+                if (FileSystem.IsDirectory(item.Text))
+                    item.Nodes.Add("Loading...");
                 progressBar.Value++;
             }
 
@@ -55,11 +59,16 @@ namespace ADB_Helper
             foreach (string item in entries)
             {
                 TreeNode n = new TreeNode(item);
-                if (FileSystem.IsDirectory(fullpath + "/" + item))
-                    n.Nodes.Add("Loading...");
                 nodeE.Nodes.Add(n);
+            }
+
+            foreach (TreeNode item in nodeE.Nodes)
+            {
+                if (FileSystem.IsDirectory(fullpath + "/" + item.Text))
+                    item.Nodes.Add("Loading...");
                 progressBar.Value++;
             }
+
             progressBar.Value = 0;
         }
 
