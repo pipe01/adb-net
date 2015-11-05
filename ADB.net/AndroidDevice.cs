@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -159,6 +161,23 @@ namespace ADB.net
                 Application.DoEvents();
 
             return root;
+        }
+
+        private static CConsole consoleSS = new CConsole();
+        public static Image TakeScreenshot()
+        {
+            bool fin = false;
+            consoleSS.OutputReceived += (output, e) => {
+                if (output.Contains("100%"))
+                    fin = true;
+            };
+            consoleSS.ExecuteCommand("adb shell screencap -p /mnt/sdcard");
+            consoleSS.ExecuteCommand("adb pull -p /mnt/sdcard/sc.png ${0}", Path.Combine(Application.ExecutablePath, @"\media"));
+
+            while (!fin)
+                Application.DoEvents();
+
+            return Image.FromFile("./media/sc.png");
         }
     }
 }
