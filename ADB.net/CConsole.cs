@@ -17,6 +17,8 @@ namespace ADB.net
         public delegate void OutputHandler(string output, EventArgs e);
         public EventArgs e = null;
 
+        private const bool showWindows = true;
+
         private Process consoleP;
 
         public CConsole()
@@ -34,7 +36,7 @@ namespace ADB.net
                 consoleP.StartInfo.UseShellExecute = false;
                 consoleP.StartInfo.RedirectStandardOutput = true;
                 consoleP.StartInfo.RedirectStandardInput = true;
-                consoleP.StartInfo.CreateNoWindow = true;
+                consoleP.StartInfo.CreateNoWindow = !showWindows;
                 consoleP.StartInfo.FileName = "CMD.exe";
                 consoleP.Start();
                 consoleP.BeginOutputReadLine();
@@ -62,7 +64,7 @@ namespace ADB.net
         {
             if (OutputReceived != null)
             {
-                if (e.Data.Split('@')[0].Contains(">")) return;
+                if (e.Data != null && e.Data.Split('@')[0].Contains(">")) return;
                 if (e.Data == null)
                     OutputReceived("null", e);
                 else

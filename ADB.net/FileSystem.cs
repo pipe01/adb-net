@@ -33,8 +33,8 @@ namespace ADB.net
                     ex = false;
                 }
             };
-            //consoleFS1.ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
-            consoleFS1.ExecuteCommand("adb shell [ -d \"${0}\" ] && echo \"yes\" || echo \"no\"", filename);
+            consoleFS1.ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
+            //consoleFS1.ExecuteCommand("adb shell [ -d \"${0}\" ] && echo \"yes\" || echo \"no\"", filename);
 
             while (!ret)
                 Application.DoEvents();
