@@ -16,6 +16,31 @@ namespace ADB.net
         public event OutputHandler OutputReceived;
         public delegate void OutputHandler(string output, EventArgs e);
         public EventArgs e = null;
+
+        private Process consoleP;
+
+        public CConsole()
+        {
+            Init();
+        }
+
+        public void Init()
+        {
+            if (consoleP == null)
+            {
+                consoleP = new Process();
+
+                consoleP.OutputDataReceived += P_OutputDataReceived;
+                consoleP.StartInfo.UseShellExecute = false;
+                consoleP.StartInfo.RedirectStandardOutput = true;
+                consoleP.StartInfo.RedirectStandardInput = true;
+                consoleP.StartInfo.CreateNoWindow = true;
+                consoleP.StartInfo.FileName = "CMD.exe";
+                consoleP.Start();
+                consoleP.BeginOutputReadLine();
+            }
+        }
+
         public void ExecuteCommand(string command, params string[] args)
         {
             string com = command;
@@ -26,23 +51,18 @@ namespace ADB.net
                 i++;
             }
 
-            // Start the child process.
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.OutputDataReceived += P_OutputDataReceived;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.FileName = "CMD.exe";
-            p.StartInfo.Arguments = "/c " + command;
-            p.Start();
-            p.BeginOutputReadLine();
+            //consoleP.StartInfo.Arguments = "/c " + command;
+
+            consoleP.StandardInput.WriteLine("@" + com);
+            consoleP.StandardInput.Flush();
+
         }
 
         private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (OutputReceived != null)
             {
+                if (e.Data.Split('@')[0].Contains(">")) return;
                 if (e.Data == null)
                     OutputReceived("null", e);
                 else
