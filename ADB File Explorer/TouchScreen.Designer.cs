@@ -39,6 +39,8 @@
             this.Size = new System.Drawing.Size(270, 480);
             this.Load += new System.EventHandler(this.TouchScreen_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TouchScreen_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TouchScreen_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TouchScreen_MouseUp);
             this.ResumeLayout(false);
 
         }

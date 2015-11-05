@@ -28,21 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.picScreen = new System.Windows.Forms.PictureBox();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.picScreen)).BeginInit();
+            this.touchScreen1 = new ADB_Helper.TouchScreen();
             this.SuspendLayout();
-            // 
-            // picScreen
-            // 
-            this.picScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.picScreen.Location = new System.Drawing.Point(12, 12);
-            this.picScreen.Name = "picScreen";
-            this.picScreen.Size = new System.Drawing.Size(270, 480);
-            this.picScreen.TabIndex = 0;
-            this.picScreen.TabStop = false;
             // 
             // btnStartStop
             // 
@@ -69,28 +59,36 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // touchScreen1
+            // 
+            this.touchScreen1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.touchScreen1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.touchScreen1.Location = new System.Drawing.Point(13, 12);
+            this.touchScreen1.Name = "touchScreen1";
+            this.touchScreen1.Size = new System.Drawing.Size(270, 480);
+            this.touchScreen1.TabIndex = 3;
+            // 
             // frmScreenshot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(295, 558);
+            this.Controls.Add(this.touchScreen1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnStartStop);
-            this.Controls.Add(this.picScreen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmScreenshot";
             this.Text = "Screenshot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmScreenshot_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.picScreen)).EndInit();
+            this.Load += new System.EventHandler(this.frmScreenshot_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        public System.Windows.Forms.PictureBox picScreen;
         private System.Windows.Forms.Button btnStartStop;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button button1;
+        private TouchScreen touchScreen1;
     }
 }

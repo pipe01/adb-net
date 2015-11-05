@@ -34,18 +34,16 @@ namespace ADB_Helper
             }
         }
 
-        private delegate void UpdatePicDelegate(Image pic);
-        private void UpdatePic(Image pic)
+        private delegate void UpdatePicDelegate();
+        private void UpdatePic()
         {
-            picScreen.BackgroundImage = null;
-            picScreen.BackgroundImage = pic;
+            touchScreen1.RefreshScreen();
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             while (Work)
             {
-                Image sc = AndroidDevice.TakeScreenshot();
-                picScreen.Invoke(new UpdatePicDelegate(UpdatePic), sc);
+                touchScreen1.Invoke(new UpdatePicDelegate(UpdatePic));
             }
         }
 
@@ -56,9 +54,12 @@ namespace ADB_Helper
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (File.Exists("./media/sc.png")) File.Delete("./media/sc.png");
-            Image sc = AndroidDevice.TakeScreenshot();
-            UpdatePic(sc);
+            UpdatePic();
+        }
+
+        private void frmScreenshot_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

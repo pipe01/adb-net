@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ADB.net;
 using PiConfig;
+using System.IO;
 
 namespace ADB_Helper
 {
@@ -42,11 +43,13 @@ namespace ADB_Helper
             listBox1.TopIndex = listBox1.Items.Count - 1;
         }
 
+        StreamWriter stream = File.AppendText("log.txt");
         private void Cconsole_LogWritten(string line, EventArgs e)
         {
             if (listBox1.InvokeRequired)
             {
                 listBox1.Invoke(new AddLineDelegate(AddLine), line);
+                stream.WriteLine(line);
             }
         }
 
@@ -110,6 +113,7 @@ namespace ADB_Helper
             if (config.Get("disconnectAtExit") == "true")
                 AndroidDevice.Disconnect();
             trayIcon.Visible = false;
+            stream.Close();
         }
 
         private void button5_Click(object sender, EventArgs e)
