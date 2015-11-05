@@ -17,7 +17,7 @@ namespace ADB.net
         public delegate void OutputHandler(string output, EventArgs e);
         public EventArgs e = null;
 
-        private const bool showWindows = true;
+        public bool showWindows = false;
 
         private Process consoleP;
 

@@ -44,14 +44,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tvFileTree.Location = new System.Drawing.Point(12, 12);
             this.tvFileTree.Name = "tvFileTree";
-            this.tvFileTree.Size = new System.Drawing.Size(487, 362);
+            this.tvFileTree.Size = new System.Drawing.Size(455, 356);
             this.tvFileTree.TabIndex = 0;
             this.tvFileTree.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.tvFileTree_AfterExpand);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(424, 380);
+            this.button1.Location = new System.Drawing.Point(392, 374);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -61,7 +61,8 @@
             // 
             // btnPull
             // 
-            this.btnPull.Location = new System.Drawing.Point(12, 380);
+            this.btnPull.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPull.Location = new System.Drawing.Point(12, 374);
             this.btnPull.Name = "btnPull";
             this.btnPull.Size = new System.Drawing.Size(89, 23);
             this.btnPull.TabIndex = 2;
@@ -71,7 +72,8 @@
             // 
             // btnPush
             // 
-            this.btnPush.Location = new System.Drawing.Point(107, 380);
+            this.btnPush.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPush.Location = new System.Drawing.Point(107, 374);
             this.btnPush.Name = "btnPush";
             this.btnPush.Size = new System.Drawing.Size(89, 23);
             this.btnPush.TabIndex = 3;
@@ -87,9 +89,11 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(202, 380);
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Location = new System.Drawing.Point(202, 374);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(216, 23);
+            this.progressBar.Size = new System.Drawing.Size(184, 23);
             this.progressBar.TabIndex = 4;
             // 
             // openFileDialog
@@ -100,7 +104,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 409);
+            this.ClientSize = new System.Drawing.Size(479, 403);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnPush);
             this.Controls.Add(this.btnPull);

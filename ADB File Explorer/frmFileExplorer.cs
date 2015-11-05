@@ -19,8 +19,11 @@ namespace ADB_Helper
             InitializeComponent();
         }
 
+        private bool Working, Stop = false;
+
         private void UpdateFileTree()
         {
+            Working = true;
             List<string> entries = new List<string>();
             entries.AddRange(FileSystem.GetAllEntries("/"));
 
@@ -30,21 +33,25 @@ namespace ADB_Helper
 
             foreach(string entry in entries)
             {
+                if (Stop) break;
                 TreeNode node = tvFileTree.Nodes.Add(entry, entry);
             }
 
             foreach (TreeNode item in tvFileTree.Nodes)
             {
+                if (Stop) break;
                 if (FileSystem.IsDirectory(item.Text))
                     item.Nodes.Add("Loading...");
                 progressBar.Value++;
             }
 
             progressBar.Value = 0;
+            Working = false;
         }
 
         private void ExpandNode(TreeNode nodeE)
         {
+            Working = true;
             string fullpath = "/" + nodeE.FullPath.Replace("\\", "/");
 
             List<string> entries = new List<string>();
@@ -58,28 +65,41 @@ namespace ADB_Helper
 
             foreach (string item in entries)
             {
+                if (Stop) break;
                 TreeNode n = new TreeNode(item);
                 nodeE.Nodes.Add(n);
             }
 
             foreach (TreeNode item in nodeE.Nodes)
             {
+                if (Stop) break;
                 if (FileSystem.IsDirectory(fullpath + "/" + item.Text))
                     item.Nodes.Add("Loading...");
                 progressBar.Value++;
             }
 
             progressBar.Value = 0;
+            Working = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UpdateFileTree();
+            if (!Working)
+            {
+                button1.Text = "Stop";
+                UpdateFileTree();
+            }
+            else
+            {
+                button1.Text = "Refresh";
+                Stop = true;
+            }
         }
 
         private void tvFileTree_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            ExpandNode(e.Node);
+            if (!Working)
+                ExpandNode(e.Node);
         }
 
         private void btnPull_Click(object sender, EventArgs e)
