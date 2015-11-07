@@ -59,7 +59,23 @@ namespace ADB_Helper
 
         private void frmScreenshot_Load(object sender, EventArgs e)
         {
+            List<NavBar> navBars = NavBar.GetAllAvailable();
+            navBar1.NavBar = navBars[0];
+        }
 
+        private void btnPower_Click(object sender, EventArgs e)
+        {
+            AndroidDevice.SimulateKeyEvent("KEYCODE_POWER");
+        }
+
+        private void btnVolUp_Click(object sender, EventArgs e)
+        {
+            AndroidDevice.SimulateKeyEvent("KEYCODE_VOLUME_UP");
+        }
+
+        private void btnVolDown_Click(object sender, EventArgs e)
+        {
+            AndroidDevice.SimulateKeyEvent("KEYCODE_VOLUME_DOWN");
         }
     }
 }

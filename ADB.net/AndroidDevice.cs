@@ -141,10 +141,9 @@ namespace ADB.net
 
         public static bool IsRooted()
         {
-            CConsole console = new CConsole();
             bool root = false;
             bool ret = false;
-            console.OutputReceived += (output, e) =>
+            consoleDevices.OutputReceived += (output, e) =>
             {
                 if (output.Contains("#"))
                 {
@@ -155,12 +154,18 @@ namespace ADB.net
                     ret = true;
                 }
             };
-            console.ExecuteCommand("adb shell su");
+            consoleDevices.ExecuteCommand("adb shell su");
 
             while (!ret)
                 Application.DoEvents();
 
             return root;
+        }
+
+        private static CConsole consoleKeys = new CConsole();
+        public static void SimulateKeyEvent(string keyevent)
+        {
+            consoleKeys.ExecuteCommand("adb shell input keyevent " + keyevent);
         }
     }
 }

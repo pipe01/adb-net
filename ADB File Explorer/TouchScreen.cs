@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ADB.net;
+using System.Diagnostics;
 
 namespace ADB_Helper
 {
@@ -29,21 +30,32 @@ namespace ADB_Helper
             this.BackgroundImage = img;
         }
 
-        int x, y, x2, y2;
-        bool down = false;
+        bool swipe = false;
+        int sX, sY;
+        Stopwatch mouseTimer = new Stopwatch();
 
         private void TouchScreen_MouseDown(object sender, MouseEventArgs e)
         {
-            x2 = 0;
-            y2 = 0;
-            x = e.X;
-            y = e.Y;
-            down = true;
+            /*if (e.Button == MouseButtons.Left)
+            {
+                x2 = 0;
+                y2 = 0;
+                x = e.X;
+                y = e.Y;
+                down = true;
+            } else */if (e.Button == MouseButtons.Left)
+            {
+                sX = e.X;
+                sY = e.Y;
+                swipe = true;
+                mouseTimer.Reset();
+                mouseTimer.Start();
+            }
         }
 
         private void TouchScreen_MouseMove(object sender, MouseEventArgs e)
         {
-            if (down)
+            /*if (down)
             {
                 if (x2 != 0 && y2 != 0)
                 {
@@ -51,13 +63,22 @@ namespace ADB_Helper
                 }
                 x2 = e.X;
                 y2 = e.Y;
-            }
+            }*/
         }
 
         private void TouchScreen_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.X == x && e.Y == y) { DeviceScreen.SimulateTap(x * 2, y * 2); }
-            down = false;
+            if (swipe)
+            {
+                mouseTimer.Stop();
+                swipe = false;
+                DeviceScreen.SimulateSwipe(sX * 2, sY * 2, e.X * 2, e.Y * 2, mouseTimer.ElapsedMilliseconds);
+            }
+            /*else
+            {
+                if (e.X == x && e.Y == y) { DeviceScreen.SimulateTap(x * 2, y * 2); }
+                down = false;
+            }*/
         }
     }
 }

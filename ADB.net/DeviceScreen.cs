@@ -48,7 +48,13 @@ namespace ADB.net
 
         public static void SimulateSwipe(int x1, int y1, int x2, int y2)
         {
-            consoleInput.ExecuteCommand("adb shell input touchscreen swipe " + x1 + " " + y1 + " " + x2 + " " + y2);
+            consoleInput.ExecuteCommand("adb shell input touchscreen swipe " + x1 +
+                " " + y1 + " " + x2 + " " + y2);
+        }
+        public static void SimulateSwipe(int x1, int y1, int x2, int y2, long ms)
+        {
+            consoleInput.ExecuteCommand("adb shell input touchscreen swipe " + x1 +
+                " " + y1 + " " + x2 + " " + y2 + " " + ms);
         }
     }
 }

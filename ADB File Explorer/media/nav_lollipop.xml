@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<navbar>
+  <id>stk_lollipop</id>
+  <name>Stock Lollipop</name>
+  <btn_recent>lp_recent.png</btn_recent>
+  <btn_home>lp_home.png</btn_home>
+  <btn_back>lp_back.png</btn_back>
+  <bgcolor>#000000</bgcolor>
+</navbar>

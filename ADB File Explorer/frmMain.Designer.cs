@@ -41,9 +41,9 @@
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.lblDeviceModel = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.txbConnect = new ADB_Helper.TextButton();
             this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
-            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,6 +139,16 @@
             this.lblDeviceModel.TabIndex = 22;
             this.lblDeviceModel.Text = "-";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(158, 40);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 43);
+            this.button4.TabIndex = 23;
+            this.button4.Text = "Take screenshot";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // txbConnect
             // 
             this.txbConnect.ButtonText = "Connect to";
@@ -161,16 +171,6 @@
             this.batteryDisplay1.Name = "batteryDisplay1";
             this.batteryDisplay1.Size = new System.Drawing.Size(231, 134);
             this.batteryDisplay1.TabIndex = 9;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(158, 40);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 43);
-            this.button4.TabIndex = 23;
-            this.button4.Text = "Take screenshot";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // btnScreenshot
             // 
