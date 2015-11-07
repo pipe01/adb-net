@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace ADB_Helper
 {
-    public partial class frmScreenshot : Form
+    public partial class frmRemoteControl : Form
     {
-        public frmScreenshot()
+        public frmRemoteControl()
         {
             InitializeComponent();
         }
@@ -59,8 +59,8 @@ namespace ADB_Helper
 
         private void frmScreenshot_Load(object sender, EventArgs e)
         {
-            List<NavBar> navBars = NavBar.GetAllAvailable();
-            navBar1.NavBar = navBars[0];
+            Dictionary<string, NavBar> navBars = NavBar.GetAllAvailable();
+            navBar1.NavBar = navBars.Values.First();
         }
 
         private void btnPower_Click(object sender, EventArgs e)
@@ -76,6 +76,11 @@ namespace ADB_Helper
         private void btnVolDown_Click(object sender, EventArgs e)
         {
             AndroidDevice.SimulateKeyEvent("KEYCODE_VOLUME_DOWN");
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            AndroidDevice.TypeString(txtInputText.Text);
         }
     }
 }

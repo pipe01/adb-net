@@ -39,6 +39,30 @@ namespace ADB.net
 
             return img;
         }
+        public static Image TakeScreenshot2()
+        {
+            try
+            {
+                bool sc = false;
+                consoleSS.OutputReceived += (output, e) => {
+                    if (output.Contains("done"))
+                        sc = true;
+                };
+                consoleSS.ExecuteCommand(@"adb shell screencap -p | sed ""s/\r$//"" > sc.png & echo done");
+
+                while (!sc)
+                    Application.DoEvents();
+
+                Image img = Image.FromStream(new MemoryStream(File.ReadAllBytes("./sc.png")));
+
+                return img;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
 
         private static CConsole consoleInput = new CConsole();
         public static void SimulateTap(int x, int y)

@@ -62,8 +62,17 @@ namespace ADB_Helper
         private delegate void UpdDeviceModelDelegate(string txt);
         private void UpdDeviceModel(string txt)
         {
-            this.Text = "Pipe's ADB Helper" + txt == "null" ? null : " - " + txt;
-            lblDeviceModel.Text = txt == "null" ? "-" : txt;
+            Device dev = Device.GetDeviceByName(txt);
+            if (dev == null)
+            {
+                this.Text = "Pipe's ADB Helper" + (txt == "null" ? null : " - " + txt);
+                lblDeviceModel.Text = txt == "null" ? "-" : txt;
+            }
+            else
+            {
+                this.Text = "Pipe's ADB Helper" + dev.vendor + " " + dev.name;
+                lblDeviceModel.Text = dev.vendor + " " + dev.name;
+            }
         }
 
         frmBatteryDisplay batteryForm = new frmBatteryDisplay();
@@ -168,14 +177,17 @@ namespace ADB_Helper
 
         private void button4_Click(object sender, EventArgs e)
         {
-            frmScreenshot frm = new frmScreenshot();
+            frmRemoteControl frm = new frmRemoteControl();
             //frm.pictureBox1.BackgroundImage = AndroidDevice.TakeScreenshot();
             frm.Show();
         }
 
         private void txbConnect_OKClicked(object sender, EventArgs e)
         {
-            AndroidDevice.ConnectOverWifi(txbConnect.Value);
+            if (AndroidDevice.ConnectOverWifi(txbConnect.Value))
+            {
+                Application.Restart();
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ADB_Helper
 
         public void RefreshScreen()
         {
-            Image img = DeviceScreen.TakeScreenshot();
+            Image img = DeviceScreen.TakeScreenshot2();
             this.BackgroundImage = img;
         }
 

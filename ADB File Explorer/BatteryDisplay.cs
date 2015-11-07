@@ -71,8 +71,8 @@ namespace ADB_Helper
             if (root == null) { Init(); }
 
             Bitmap res = new Bitmap(231, 134);
-            Bitmap batLevel = Image.FromFile(root + "/media/batteryLevel.png") as Bitmap;
-            Bitmap battery = Image.FromFile(root + "/media/batteryOverlay.png") as Bitmap;
+            Bitmap batLevel = Image.FromFile(root + "/res/batteryLevel.png") as Bitmap;
+            Bitmap battery = Image.FromFile(root + "/res/batteryOverlay.png") as Bitmap;
             Graphics g = Graphics.FromImage(res);
 
             if (makeTrans)
@@ -98,7 +98,7 @@ namespace ADB_Helper
             }
             if (ac)
             {
-                Bitmap acIcon = Image.FromFile(root + "/media/batteryAC.png") as Bitmap;
+                Bitmap acIcon = Image.FromFile(root + "/res/batteryAC.png") as Bitmap;
                 int x, y, w1, h;
                 w1 = acIcon.Width / 2;
                 h = acIcon.Height / 2;

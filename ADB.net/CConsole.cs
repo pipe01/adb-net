@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace ADB.net
         public EventArgs e = null;
 
         public bool showWindows = false;
+        public bool outputToLog = true;
 
         private Process consoleP;
 
@@ -65,12 +67,10 @@ namespace ADB.net
             if (OutputReceived != null)
             {
                 if (e.Data != null && e.Data.Split('@')[0].Contains(">")) return;
-                if (e.Data == null)
-                    OutputReceived("null", e);
-                else
+                if (e.Data != null)
                     OutputReceived(e.Data, e);
             }
-            if (e.Data != null && e.Data != "")
+            if (e.Data != null && e.Data != "" && outputToLog)
             {
                 log.Add(e.Data);
                 LogWritten(e.Data, EventArgs.Empty);

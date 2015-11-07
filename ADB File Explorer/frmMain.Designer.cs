@@ -38,11 +38,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.tFormBattery = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txbConnect = new ADB_Helper.TextButton();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.lblDeviceModel = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.txbConnect = new ADB_Helper.TextButton();
             this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -113,6 +113,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "WiFi";
             // 
+            // txbConnect
+            // 
+            this.txbConnect.ButtonText = "Connect to";
+            this.txbConnect.Location = new System.Drawing.Point(6, 19);
+            this.txbConnect.Name = "txbConnect";
+            this.txbConnect.Size = new System.Drawing.Size(75, 23);
+            this.txbConnect.TabIndex = 19;
+            this.txbConnect.Value = "";
+            this.txbConnect.OKClicked += new System.EventHandler(this.txbConnect_OKClicked);
+            // 
             // trayIcon
             // 
             this.trayIcon.Text = "Pipe\'s ADB Helper";
@@ -148,16 +158,6 @@
             this.button4.Text = "Take screenshot";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // txbConnect
-            // 
-            this.txbConnect.ButtonText = "Connect to";
-            this.txbConnect.Location = new System.Drawing.Point(6, 19);
-            this.txbConnect.Name = "txbConnect";
-            this.txbConnect.Size = new System.Drawing.Size(75, 23);
-            this.txbConnect.TabIndex = 19;
-            this.txbConnect.Value = "";
-            this.txbConnect.OKClicked += new System.EventHandler(this.txbConnect_OKClicked);
             // 
             // batteryDisplay1
             // 

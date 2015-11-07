@@ -12,12 +12,12 @@ namespace ADB_Helper
     public class NavBar
     {
         #region "Static Methods"
-        public static List<NavBar> GetAllAvailable()
+        public static Dictionary<string, NavBar> GetAllAvailable()
         {
-            List<NavBar> list = new List<NavBar>();
+            Dictionary<string, NavBar> dic = new Dictionary<string, NavBar>();
             NavBar curr = null;
 
-            foreach (string item in Directory.EnumerateFiles("./media", "nav_*.xml"))
+            foreach (string item in Directory.EnumerateFiles("./res/navbars", "nav_*.xml"))
             {
                 using (XmlReader reader = XmlReader.Create(item))
                 {
@@ -40,15 +40,15 @@ namespace ADB_Helper
                                     break;
                                 case "btn_recent":
                                     reader.Read();
-                                    curr.buttonRecent = Image.FromFile("./media/" + reader.Value);
+                                    curr.buttonRecent = Image.FromFile("./res/navbars/" + reader.Value);
                                     break;
                                 case "btn_home":
                                     reader.Read();
-                                    curr.buttonHome = Image.FromFile("./media/" + reader.Value);
+                                    curr.buttonHome = Image.FromFile("./res/navbars/" + reader.Value);
                                     break;
                                 case "btn_back":
                                     reader.Read();
-                                    curr.buttonBack = Image.FromFile("./media/" + reader.Value);
+                                    curr.buttonBack = Image.FromFile("./res/navbars/" + reader.Value);
                                     break;
                                 case "bgcolor":
                                     reader.Read();
@@ -59,11 +59,11 @@ namespace ADB_Helper
                             }
                         }
                     }
-                    list.Add(curr);
+                    dic.Add(curr.id, curr);
                 }
             }
 
-            return list;
+            return dic;
         }
         #endregion
 

@@ -167,5 +167,15 @@ namespace ADB.net
         {
             consoleKeys.ExecuteCommand("adb shell input keyevent " + keyevent);
         }
+
+        public static void TypeString(string str)
+        {
+            string[] split = str.Split(' ');
+            for (int i = 0; i < split.Length; i++)
+            {
+                consoleKeys.ExecuteCommand("adb shell input text \"" + split[i] + "\"");
+                if (i != split.Length - 1) SimulateKeyEvent("KEYCODE_SPACE");
+            }
+        }
     }
 }

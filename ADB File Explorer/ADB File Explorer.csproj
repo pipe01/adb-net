@@ -70,6 +70,7 @@
     <Compile Include="BatteryDisplay.Designer.cs">
       <DependentUpon>BatteryDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Device.cs" />
     <Compile Include="frmBatteryDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,11 +101,11 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmScreenshot.cs">
+    <Compile Include="frmRemoteControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmScreenshot.Designer.cs">
-      <DependentUpon>frmScreenshot.cs</DependentUpon>
+    <Compile Include="frmRemoteControl.Designer.cs">
+      <DependentUpon>frmRemoteControl.cs</DependentUpon>
     </Compile>
     <Compile Include="NavBar.cs" />
     <Compile Include="NavBarControl.cs">
@@ -145,8 +146,8 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmScreenshot.resx">
-      <DependentUpon>frmScreenshot.cs</DependentUpon>
+    <EmbeddedResource Include="frmRemoteControl.resx">
+      <DependentUpon>frmRemoteControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NavBarControl.resx">
       <DependentUpon>NavBarControl.cs</DependentUpon>
@@ -181,25 +182,31 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="media\batteryAC.png">
+    <Content Include="res\batteryAC.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\batteryLevel.png">
+    <Content Include="res\batteryLevel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\batteryOverlay.png">
+    <Content Include="res\batteryOverlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\lp_back.png">
+    <Content Include="res\devices\aquaris_e4.5.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\lp_home.png">
+    <Content Include="res\navbars\lp_back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\lp_recent.png">
+    <Content Include="res\navbars\lp_home.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="media\nav_lollipop.xml">
+    <Content Include="res\navbars\lp_recent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\navbars\nav_lollipop.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sed.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -224,6 +231,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
