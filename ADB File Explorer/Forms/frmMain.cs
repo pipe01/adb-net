@@ -182,6 +182,11 @@ namespace ADB_Helper
             frm.Show();
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            new frmAppManager().Show();
+        }
+
         private void txbConnect_OKClicked(object sender, EventArgs e)
         {
             if (AndroidDevice.ConnectOverWifi(txbConnect.Value))

@@ -64,92 +64,92 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BatteryDisplay.cs">
+    <Compile Include="Controls\BatteryDisplay.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BatteryDisplay.Designer.cs">
+    <Compile Include="Controls\BatteryDisplay.Designer.cs">
       <DependentUpon>BatteryDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Device.cs" />
-    <Compile Include="frmBatteryDisplay.cs">
+    <Compile Include="Forms\frmBatteryDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBatteryDisplay.Designer.cs">
+    <Compile Include="Forms\frmBatteryDisplay.Designer.cs">
       <DependentUpon>frmBatteryDisplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmConfig.cs">
+    <Compile Include="Forms\frmConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConfig.Designer.cs">
+    <Compile Include="Forms\frmConfig.Designer.cs">
       <DependentUpon>frmConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmConsole.cs">
+    <Compile Include="Forms\frmFileExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConsole.Designer.cs">
-      <DependentUpon>frmConsole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmFileExplorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmFileExplorer.Designer.cs">
+    <Compile Include="Forms\frmFileExplorer.Designer.cs">
       <DependentUpon>frmFileExplorer.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmRemoteControl.cs">
+    <Compile Include="Forms\frmRemoteControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRemoteControl.Designer.cs">
+    <Compile Include="Forms\frmRemoteControl.Designer.cs">
       <DependentUpon>frmRemoteControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmAppManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAppManager.Designer.cs">
+      <DependentUpon>frmAppManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavBar.cs" />
-    <Compile Include="NavBarControl.cs">
+    <Compile Include="Controls\NavBarControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NavBarControl.Designer.cs">
+    <Compile Include="Controls\NavBarControl.Designer.cs">
       <DependentUpon>NavBarControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextButton.cs">
+    <Compile Include="Controls\TextButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TextButton.Designer.cs">
+    <Compile Include="Controls\TextButton.Designer.cs">
       <DependentUpon>TextButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="TouchScreen.cs">
+    <Compile Include="Controls\TouchScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TouchScreen.Designer.cs">
+    <Compile Include="Controls\TouchScreen.Designer.cs">
       <DependentUpon>TouchScreen.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BatteryDisplay.resx">
+    <EmbeddedResource Include="Controls\BatteryDisplay.resx">
       <DependentUpon>BatteryDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBatteryDisplay.resx">
+    <EmbeddedResource Include="Forms\frmAppManager.resx">
+      <DependentUpon>frmAppManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBatteryDisplay.resx">
       <DependentUpon>frmBatteryDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmConfig.resx">
+    <EmbeddedResource Include="Forms\frmConfig.resx">
       <DependentUpon>frmConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmConsole.resx">
-      <DependentUpon>frmConsole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmFileExplorer.resx">
+    <EmbeddedResource Include="Forms\frmFileExplorer.resx">
       <DependentUpon>frmFileExplorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmRemoteControl.resx">
+    <EmbeddedResource Include="Forms\frmRemoteControl.resx">
       <DependentUpon>frmRemoteControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NavBarControl.resx">
+    <EmbeddedResource Include="Controls\NavBarControl.resx">
       <DependentUpon>NavBarControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -162,10 +162,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TextButton.resx">
+    <EmbeddedResource Include="Controls\TextButton.resx">
       <DependentUpon>TextButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TouchScreen.resx">
+    <EmbeddedResource Include="Controls\TouchScreen.resx">
       <DependentUpon>TouchScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

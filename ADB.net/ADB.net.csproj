@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidDevice.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="AppManager.cs" />
     <Compile Include="BatteryStatus.cs" />
     <Compile Include="CConsole.cs" />
     <Compile Include="DeviceScreen.cs" />

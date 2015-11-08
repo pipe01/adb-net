@@ -68,47 +68,53 @@ namespace ADB_Helper
 
         public void RefreshImg()
         {
-            if (root == null) { Init(); }
-
-            Bitmap res = new Bitmap(231, 134);
-            Bitmap batLevel = Image.FromFile(root + "/res/batteryLevel.png") as Bitmap;
-            Bitmap battery = Image.FromFile(root + "/res/batteryOverlay.png") as Bitmap;
-            Graphics g = Graphics.FromImage(res);
-
-            if (makeTrans)
-                battery.MakeTransparent();
-
-            //g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
-            //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
-
-            float w = (batLevel.Width / 100) * batteryLevel;
-            w += 0.05f * w;
-
-            g.DrawImage(battery, new Point(0, 0));
-            g.DrawImage(cropImage(batLevel, new RectangleF(0, 0, w, batLevel.Height)), new Point(11, 11));
-            
-            if (drawPerc)
-            { 
-                FontFamily fontF = new FontFamily("Arial");
-                Font font = new Font(fontF, 15);
-                PointF textPos = new PointF(11 + w - (BatteryLevel >= 88 ? (BatteryLevel == 100 ? 40 : 28) : 0),
-                    this.Height / 2 - font.Size / 2 - 3);
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                g.DrawString(batteryLevel.ToString(), font, Brushes.Black, textPos);
-            }
-            if (ac)
+            try
             {
-                Bitmap acIcon = Image.FromFile(root + "/res/batteryAC.png") as Bitmap;
-                int x, y, w1, h;
-                w1 = acIcon.Width / 2;
-                h = acIcon.Height / 2;
-                x = this.Width / 2 - w1 / 2;
-                y = this.Height / 2 - h / 2;
-                g.DrawImage(SetImageOpacity(acIcon,0.5f), new Rectangle(x, y, w1, h));
-            }
+                if (root == null) { Init(); }
 
-            this.BackgroundImage = res as Image;
-            
+                Bitmap res = new Bitmap(231, 134);
+                Bitmap batLevel = Image.FromFile(root + "/res/batteryLevel.png") as Bitmap;
+                Bitmap battery = Image.FromFile(root + "/res/batteryOverlay.png") as Bitmap;
+                Graphics g = Graphics.FromImage(res);
+
+                if (makeTrans)
+                    battery.MakeTransparent();
+
+                //g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixel;
+                //g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+
+                float w = (batLevel.Width / 100) * batteryLevel;
+                w += 0.05f * w;
+
+                g.DrawImage(battery, new Point(0, 0));
+                g.DrawImage(cropImage(batLevel, new RectangleF(0, 0, w, batLevel.Height)), new Point(11, 11));
+
+                if (drawPerc)
+                {
+                    FontFamily fontF = new FontFamily("Arial");
+                    Font font = new Font(fontF, 15);
+                    PointF textPos = new PointF(11 + w - (BatteryLevel >= 88 ? (BatteryLevel == 100 ? 40 : 28) : 0),
+                        this.Height / 2 - font.Size / 2 - 3);
+                    g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                    g.DrawString(batteryLevel.ToString(), font, Brushes.Black, textPos);
+                }
+                if (ac)
+                {
+                    Bitmap acIcon = Image.FromFile(root + "/res/batteryAC.png") as Bitmap;
+                    int x, y, w1, h;
+                    w1 = acIcon.Width / 2;
+                    h = acIcon.Height / 2;
+                    x = this.Width / 2 - w1 / 2;
+                    y = this.Height / 2 - h / 2;
+                    g.DrawImage(SetImageOpacity(acIcon, 0.5f), new Rectangle(x, y, w1, h));
+                }
+
+                this.BackgroundImage = res as Image;
+            }
+            catch (Exception)
+            {
+                
+            }
         }
         private Image cropImage(Bitmap img, RectangleF cropArea)
         {

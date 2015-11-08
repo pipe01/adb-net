@@ -44,6 +44,7 @@
             this.lblDeviceModel = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -151,11 +152,11 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(158, 40);
+            this.button4.Location = new System.Drawing.Point(158, 41);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 43);
+            this.button4.Size = new System.Drawing.Size(75, 34);
             this.button4.TabIndex = 23;
-            this.button4.Text = "Take screenshot";
+            this.button4.Text = "Remote control";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -172,11 +173,22 @@
             this.batteryDisplay1.Size = new System.Drawing.Size(231, 134);
             this.batteryDisplay1.TabIndex = 9;
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(158, 81);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 34);
+            this.button6.TabIndex = 24;
+            this.button6.Text = "App manager";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // btnScreenshot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 314);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.lblDeviceModel);
             this.Controls.Add(this.button2);
@@ -215,5 +227,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblDeviceModel;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button6;
     }
 }
