@@ -114,6 +114,10 @@ namespace ADB.net
             return present;
         }
 
+        /// <summary>
+        /// If there is a device connected, returns the device's model (ro.product.model)
+        /// </summary>
+        /// <returns></returns>
         public static string GetDeviceModel()
         {
             bool ret = false;
@@ -139,6 +143,10 @@ namespace ADB.net
             return model;
         }
 
+        /// <summary>
+        /// Checks if the device is rooted by executing "su"
+        /// </summary>
+        /// <returns></returns>
         public static bool IsRooted()
         {
             bool root = false;
@@ -163,11 +171,19 @@ namespace ADB.net
         }
 
         private static CConsole consoleKeys = new CConsole();
+        /// <summary>
+        /// Simulates a soft/hard key event on the device.
+        /// </summary>
+        /// <param name="keyevent">Key to be simulated. See http://developer.android.com/reference/android/view/KeyEvent.html </param>
         public static void SimulateKeyEvent(string keyevent)
         {
             consoleKeys.ExecuteCommand("adb shell input keyevent " + keyevent);
         }
 
+        /// <summary>
+        /// Types the passed string in a simulated hard keyboard
+        /// </summary>
+        /// <param name="str">String to type</param>
         public static void TypeString(string str)
         {
             string[] split = str.Split(' ');

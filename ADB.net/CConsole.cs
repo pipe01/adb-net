@@ -5,6 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Caching;
+using System.Collections.Specialized;
 
 namespace ADB.net
 {
@@ -16,7 +18,6 @@ namespace ADB.net
         public delegate void LogHandler(string line, EventArgs e);
         public event OutputHandler OutputReceived;
         public delegate void OutputHandler(string output, EventArgs e);
-        public EventArgs e = null;
 
         public bool showWindows = false;
         public bool outputToLog = true;
@@ -45,19 +46,9 @@ namespace ADB.net
             }
         }
 
-        public void ExecuteCommand(string command, params string[] args)
+        public void ExecuteCommand(string command)
         {
-            string com = command;
-            int i = 0;
-            foreach (string item in args)
-            {
-                com = com.Replace("${" + i + "}", args[i]);
-                i++;
-            }
-
-            //consoleP.StartInfo.Arguments = "/c " + command;
-
-            consoleP.StandardInput.WriteLine("@" + com);
+            consoleP.StandardInput.WriteLine("@" + command);
             consoleP.StandardInput.Flush();
 
         }
@@ -76,5 +67,24 @@ namespace ADB.net
                 LogWritten(e.Data, EventArgs.Empty);
             }
         }
+
+        public void RestartConsole()
+        {
+            if (consoleP != null)
+            {
+                consoleP.Close();
+                consoleP.WaitForExit();
+                consoleP = null;
+                Init();
+            }
+        }
+
+        #region "Static"
+        private MemoryCache memCache = new MemoryCache("PathCache", new NameValueCollection()
+                                    {
+                                      { "CacheMemoryLimitMegabytes", "256" },
+                                      { "PhysicalMemoryLimit", "50" }
+                                    });
+        #endregion
     }
 }
