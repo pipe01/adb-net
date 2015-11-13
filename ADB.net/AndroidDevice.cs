@@ -11,7 +11,6 @@ namespace ADB.net
 {
     public class AndroidDevice
     {
-        private static CConsole consoleConnect;
         /// <summary>  
         /// Connects to a device over WiFi ADB.
         /// </summary>  
@@ -20,12 +19,11 @@ namespace ADB.net
         public static bool ConnectOverWifi(string ip)
         {
             string ret = "";
-            consoleConnect = new CConsole();
-            consoleConnect.OutputReceived += (output, e) =>
+            CConsole.GCFM("connect").OutputReceived += (output, e) =>
             {
                 ret = output;
             };
-            consoleConnect.ExecuteCommand("adb connect " + ip);
+            CConsole.GCFM("connect").ExecuteCommand("adb connect " + ip);
 
             while (!ret.Contains("connect"))
             {
@@ -40,7 +38,6 @@ namespace ADB.net
             }
         }
 
-        private static CConsole consoleDisconnect = new CConsole();
         /// <summary>  
         /// Disconnects from the current WiFi ADB device (if any).
         /// No output will be shown on log.
@@ -48,10 +45,9 @@ namespace ADB.net
         /// <returns></returns>  
         public static void Disconnect()
         {
-            consoleDisconnect.ExecuteCommand("adb disconnect");
+            CConsole.GCFM("connect").ExecuteCommand("adb disconnect");
         }
 
-        private static CConsole consoleBattery = new CConsole();
         /// <summary>  
         /// Gets the current device's battery status.
         /// See <seealso cref="BatteryStatus"/>.
@@ -62,15 +58,15 @@ namespace ADB.net
             BatteryStatus status = new BatteryStatus();
             string lvl = null;
             string ac = null;
-            
-            consoleBattery.OutputReceived += (output, e) =>
+
+            CConsole.GCFM("battery").OutputReceived += (output, e) =>
             {
                 if (output.Contains("level:") && !output.Contains("level: 50"))
                     lvl = output.Trim();
                 else if (output.Contains("AC powered:"))
                     ac = output.Trim().Split()[2];
             };
-            consoleBattery.ExecuteCommand("adb shell dumpsys battery");
+            CConsole.GCFM("battery").ExecuteCommand("adb shell dumpsys battery");
 
             while (lvl == null)
                 Application.DoEvents();
@@ -85,7 +81,6 @@ namespace ADB.net
             return status;
         }
 
-        private static CConsole consoleDevices = new CConsole();
         /// <summary>
         /// Detects if any device is connected and online, either WiFi or USB.
         /// </summary>
@@ -94,7 +89,7 @@ namespace ADB.net
         {
             bool present = false;
             bool ret = false;
-            consoleDevices.OutputReceived += (output, e) =>
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output.Contains("\t") && output.Contains("device"))
                 {
@@ -106,7 +101,7 @@ namespace ADB.net
                     ret = true;
                 }
             };
-            consoleDevices.ExecuteCommand("adb devices");
+            CConsole.GCFM("devices").ExecuteCommand("adb devices");
 
             while (!ret)
                 Application.DoEvents();
@@ -122,7 +117,7 @@ namespace ADB.net
         {
             bool ret = false;
             string model = null;
-            consoleDevices.OutputReceived += (output, e) =>
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output.Contains("error"))
                 {
@@ -135,7 +130,7 @@ namespace ADB.net
                     ret = true;
                 }
             };
-            consoleDevices.ExecuteCommand("adb shell getprop ro.product.model");
+            CConsole.GCFM("devices").ExecuteCommand("adb shell getprop ro.product.model");
 
             while (!ret)
                 Application.DoEvents();
@@ -151,7 +146,7 @@ namespace ADB.net
         {
             bool root = false;
             bool ret = false;
-            consoleDevices.OutputReceived += (output, e) =>
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output.Contains("#"))
                 {
@@ -162,7 +157,7 @@ namespace ADB.net
                     ret = true;
                 }
             };
-            consoleDevices.ExecuteCommand("adb shell su");
+            CConsole.GCFM("devices").ExecuteCommand("adb shell su");
 
             while (!ret)
                 Application.DoEvents();
@@ -170,27 +165,26 @@ namespace ADB.net
             return root;
         }
 
-        private static CConsole consoleKeys = new CConsole();
         /// <summary>
         /// Simulates a soft/hard key event on the device.
         /// </summary>
         /// <param name="keyevent">Key to be simulated. See http://developer.android.com/reference/android/view/KeyEvent.html </param>
         public static void SimulateKeyEvent(string keyevent)
         {
-            consoleKeys.ExecuteCommand("adb shell input keyevent " + keyevent);
+            CConsole.GCFM("input").ExecuteCommand("adb shell input keyevent " + keyevent);
         }
 
         /// <summary>
         /// Types the passed string in a simulated hard keyboard
         /// </summary>
         /// <param name="str">String to type</param>
-        public static void TypeString(string str)
+        public static void TypeString(string str, string keycode_space = "KEYCODE_SPACE")
         {
             string[] split = str.Split(' ');
             for (int i = 0; i < split.Length; i++)
             {
-                consoleKeys.ExecuteCommand("adb shell input text \"" + split[i] + "\"");
-                if (i != split.Length - 1) SimulateKeyEvent("KEYCODE_SPACE");
+                CConsole.GCFM("input").ExecuteCommand("adb shell input text \"" + split[i] + "\"");
+                if (i != split.Length - 1) SimulateKeyEvent(keycode_space);
             }
         }
     }

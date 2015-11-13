@@ -9,12 +9,11 @@ namespace ADB.net
 {
     public class AppManager
     {
-        private static CConsole consoleApps1 = new CConsole();
         public static List<App> GetAllApps() 
         {
             bool done = false;
             List<App> ls1 = new List<App>();
-            consoleApps1.OutputReceived += (output, e) =>
+            CConsole.GCFM("apps").OutputReceived += (output, e) =>
             {
                 if (output.StartsWith("package:"))
                 {
@@ -23,7 +22,7 @@ namespace ADB.net
                 else if (output.Contains("@done@"))
                     done = true;
             };
-            consoleApps1.ExecuteCommand("adb shell pm list packages; echo @done@");
+            CConsole.GCFM("apps").ExecuteCommand("adb shell pm list packages; echo @done@");
 
             while (!done)
                 Application.DoEvents();

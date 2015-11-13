@@ -9,7 +9,6 @@ namespace ADB.net
 {
     public class FileSystem
     {
-        private static CConsole consoleFS1 = new CConsole();
         /// <summary>
         /// Checks if the indicated path is a directory
         /// </summary>
@@ -20,7 +19,7 @@ namespace ADB.net
             bool ret, ex;
             ret = false;
             ex = false;
-            consoleFS1.OutputReceived += (output, e) =>
+            CConsole.GCFM("fs2").OutputReceived += (output, e) =>
             {
                 if (output == "yes")
                 {
@@ -33,7 +32,7 @@ namespace ADB.net
                     ex = false;
                 }
             };
-            consoleFS1.ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
+            CConsole.GCFM("fs2").ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
             //consoleFS1.ExecuteCommand("adb shell [ -d \"${0}\" ] && echo \"yes\" || echo \"no\"", filename);
 
             while (!ret)
@@ -53,7 +52,7 @@ namespace ADB.net
         {
             bool ret = false;
             List<string> entries = new List<string>();
-            consoleFS1.OutputReceived += (output, e) =>
+            CConsole.GCFM("fs1").OutputReceived += (output, e) =>
             {
                 if (output == "" || output == null || output == "null") return;
                 if (output == "terminado")
@@ -67,7 +66,7 @@ namespace ADB.net
                     entries.AddRange(GetAllEntries(path + "/" + output, true));
                 }
             };
-            consoleFS1.ExecuteCommand("adb shell cd " + path + ";ls; echo terminado");
+            CConsole.GCFM("fs1").ExecuteCommand("adb shell cd " + path + ";ls; echo terminado");
 
             while (!ret)
                 Application.DoEvents();
@@ -78,49 +77,15 @@ namespace ADB.net
             }
             return entries;
         }
-        public static List<string> GetAllEntries2(string path)
-        {
-            List<string> entries = new List<string>();
-            string currDir = path;
-            bool fin = false;
-            consoleFS1.OutputReceived += (output, e) =>
-              {
-                  if (output == "OK") fin = true;
-                  if (output.Contains("opendir failed")) return;
-                  if (output.StartsWith("./"))
-                  {
-                      currDir = path + output.Substring(2);
-                      //entries.Remove(output.Substring(2));
-                  } else if (output != "null")
-                  {
-                      entries.Add(currDir + "/" + output);
-                  }
-              };
-            //if (AndroidDevice.IsRooted())
-            //{
-                consoleFS1.ExecuteCommand("adb shell su;ls -R;echo OK");
-            //}
-            //else
-            //{
-            //    consoleFS1.ExecuteCommand("adb shell ls -R;echo OK");
-            //}
 
-            while (!fin)
-                Application.DoEvents();
-
-            return entries;
-            
-        }
-
-        private static CConsole consoleFS2 = new CConsole();
         public static void PullFile(string dPath, string cPath)
         {
-            consoleFS2.ExecuteCommand("adb pull -p \"" + dPath + "\" \"" + cPath + "\"");
+            CConsole.GCFM("fs2").ExecuteCommand("adb pull -p \"" + dPath + "\" \"" + cPath + "\"");
         }
 
         public static void PushFile(string dPath, string cPath)
         {
-            consoleFS2.ExecuteCommand("adb push -p \"" + cPath + "\" \"" + dPath + "\"");
+            CConsole.GCFM("fs2").ExecuteCommand("adb push -p \"" + cPath + "\" \"" + dPath + "\"");
         }
     }
 }

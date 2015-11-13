@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ADB.net;
 
 namespace ADB_Helper
 {
@@ -17,7 +18,7 @@ namespace ADB_Helper
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new btnScreenshot());
+            Application.Run(new frmMain());
         }
     }
 }

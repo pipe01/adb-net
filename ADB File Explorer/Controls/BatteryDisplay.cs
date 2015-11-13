@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing.Imaging;
+using ADB.net;
 
 namespace ADB_Helper
 {
@@ -70,7 +71,8 @@ namespace ADB_Helper
         {
             try
             {
-                if (root == null) { Init(); }
+                if (root == null) Init();
+                if (root.Contains("Controls")) return;
 
                 Bitmap res = new Bitmap(231, 134);
                 Bitmap batLevel = Image.FromFile(root + "/res/batteryLevel.png") as Bitmap;
@@ -111,9 +113,10 @@ namespace ADB_Helper
 
                 this.BackgroundImage = res as Image;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                //new CConsole("GUI").WriteToLog("ERROR: " + ex.Message);
+                throw;
             }
         }
         private Image cropImage(Bitmap img, RectangleF cropArea)

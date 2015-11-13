@@ -12,20 +12,20 @@ namespace ADB.net
 {
     public class CConsole
     {
-        public static List<string> log = new List<string>();
-
-        public static event LogHandler LogWritten;
         public delegate void LogHandler(string line, EventArgs e);
         public event OutputHandler OutputReceived;
         public delegate void OutputHandler(string output, EventArgs e);
+
+        public string ID;
 
         public bool showWindows = false;
         public bool outputToLog = true;
 
         private Process consoleP;
 
-        public CConsole()
+        public CConsole(string id)
         {
+            ID = id;
             Init();
         }
 
@@ -63,8 +63,7 @@ namespace ADB.net
             }
             if (e.Data != null && e.Data != "" && outputToLog)
             {
-                log.Add(e.Data);
-                LogWritten(e.Data, EventArgs.Empty);
+                WriteToLog(e.Data);
             }
         }
 
@@ -72,19 +71,67 @@ namespace ADB.net
         {
             if (consoleP != null)
             {
-                consoleP.Close();
+                consoleP.Kill();
                 consoleP.WaitForExit();
                 consoleP = null;
                 Init();
             }
         }
 
+        public void WriteToLog(string str)
+        {
+            log.Add(str);
+            if (LogWritten != null)
+                LogWritten(ID + ": " + str, EventArgs.Empty);
+        }
+
+        public void SendCntrlC()
+        {
+            consoleP.StandardInput.WriteLine("x3");
+        }
+
         #region "Static"
-        private MemoryCache memCache = new MemoryCache("PathCache", new NameValueCollection()
+        public static event LogHandler LogWritten;
+        public static MemoryCache memCache = new MemoryCache("PathCache", new NameValueCollection()
                                     {
                                       { "CacheMemoryLimitMegabytes", "256" },
                                       { "PhysicalMemoryLimit", "50" }
                                     });
+        public static CConsole GCFM(string key, bool create = true)
+        {
+            if (memCache.Contains(key))
+            {
+                return memCache[key] as CConsole;
+            } else {
+                if (create)
+                {
+                    memCache.Add(key, new CConsole(key), new CacheItemPolicy());
+                    (memCache[key] as CConsole).Init();
+                    return memCache[key] as CConsole;
+                } else
+                    return null;
+            }
+        }
+        public static void Dispose()
+        {
+            memCache.Dispose();
+        }
+        public static void SendCntrlCAll()
+        {
+            foreach (var item in memCache)
+            {
+                (item.Value as CConsole).SendCntrlC();
+            }
+        }
+        public static void RestartAll()
+        {
+            foreach (var item in memCache)
+            {
+                (item.Value as CConsole).RestartConsole();
+            }
+        }
+
+        public static List<string> log = new List<string>();
         #endregion
     }
 }

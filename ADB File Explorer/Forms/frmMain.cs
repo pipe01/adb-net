@@ -13,9 +13,9 @@ using System.IO;
 
 namespace ADB_Helper
 {
-    public partial class btnScreenshot : Form
+    public partial class frmMain : Form
     {
-        public btnScreenshot()
+        public frmMain()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -70,7 +70,7 @@ namespace ADB_Helper
             }
             else
             {
-                this.Text = "Pipe's ADB Helper" + dev.vendor + " " + dev.name;
+                this.Text = "Pipe's ADB Helper - " + dev.vendor + " " + dev.name;
                 lblDeviceModel.Text = dev.vendor + " " + dev.name;
             }
         }
@@ -87,7 +87,7 @@ namespace ADB_Helper
                 blvl = status.Level;
                 pAC = AC;
                 AC = status.ACConnected;
-                this.Invoke(new UpdDeviceModelDelegate(UpdDeviceModel), AndroidDevice.GetDeviceModel());
+                //this.Invoke(new UpdDeviceModelDelegate(UpdDeviceModel), AndroidDevice.GetDeviceModel());
                 updTask.ReportProgress(0);
             }
             else
@@ -187,11 +187,17 @@ namespace ADB_Helper
             new frmAppManager().Show();
         }
 
+        private void button7_Click(object sender, EventArgs e)
+        {
+            CConsole.RestartAll();
+        }
+
         private void txbConnect_OKClicked(object sender, EventArgs e)
         {
             if (AndroidDevice.ConnectOverWifi(txbConnect.Value))
             {
-                Application.Restart();
+                CConsole.RestartAll();
+                updTask.RunWorkerAsync();
             }
         }
     }

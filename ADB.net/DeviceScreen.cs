@@ -11,24 +11,23 @@ namespace ADB.net
 {
     public class DeviceScreen
     {
-        private static CConsole consoleSS = new CConsole();
         public static Image TakeScreenshot()
         {
             bool fin = false;
             bool sc = false;
-            consoleSS.OutputReceived += (output, e) => {
+            CConsole.GCFM("ss").OutputReceived += (output, e) => {
                 if (output.Contains("fin"))
                     sc = true;
                 if (output.Contains("fin2"))
                     fin = true;
             };
-            consoleSS.ExecuteCommand("adb shell screencap -p /mnt/sdcard/sc.png; echo fin");
+            CConsole.GCFM("ss").ExecuteCommand("adb shell screencap -p /mnt/sdcard/sc.png; echo fin");
 
             while (!sc)
                 Application.DoEvents();
 
             string cmd = "adb pull -p /mnt/sdcard/sc.png \"" + Path.GetDirectoryName(Application.ExecutablePath).Replace("\\", "/") + "/media\" & echo fin2";
-            consoleSS.ExecuteCommand(cmd);
+            CConsole.GCFM("ss").ExecuteCommand(cmd);
 
             while (!fin)
                 Application.DoEvents();
@@ -44,11 +43,11 @@ namespace ADB.net
             try
             {
                 bool sc = false;
-                consoleSS.OutputReceived += (output, e) => {
+                CConsole.GCFM("ss").OutputReceived += (output, e) => {
                     if (output.Contains("done"))
                         sc = true;
                 };
-                consoleSS.ExecuteCommand(@"adb shell screencap -p | sed ""s/\r$//"" > sc.png & echo done");
+                CConsole.GCFM("ss").ExecuteCommand(@"adb shell screencap -p | sed ""s/\r$//"" > sc.png & echo done");
 
                 while (!sc)
                     Application.DoEvents();
@@ -64,20 +63,19 @@ namespace ADB.net
 
         }
 
-        private static CConsole consoleInput = new CConsole();
         public static void SimulateTap(int x, int y)
         {
-            consoleInput.ExecuteCommand("adb shell input touchscreen tap " + x + " " + y);
+            CConsole.GCFM("sinput").ExecuteCommand("adb shell input touchscreen tap " + x + " " + y);
         }
 
         public static void SimulateSwipe(int x1, int y1, int x2, int y2)
         {
-            consoleInput.ExecuteCommand("adb shell input touchscreen swipe " + x1 +
+            CConsole.GCFM("sinput").ExecuteCommand("adb shell input touchscreen swipe " + x1 +
                 " " + y1 + " " + x2 + " " + y2);
         }
         public static void SimulateSwipe(int x1, int y1, int x2, int y2, long ms)
         {
-            consoleInput.ExecuteCommand("adb shell input touchscreen swipe " + x1 +
+            CConsole.GCFM("sinput").ExecuteCommand("adb shell input touchscreen swipe " + x1 +
                 " " + y1 + " " + x2 + " " + y2 + " " + ms);
         }
     }
