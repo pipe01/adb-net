@@ -104,12 +104,18 @@ namespace ADB_Helper
 
         private void btnPull_Click(object sender, EventArgs e)
         {
+            int progress = 0;
             if (tvFileTree.SelectedNode != null || tvFileTree.SelectedNode.Nodes.Count > 0)
             {
                 string fullpath = "/" + tvFileTree.SelectedNode.FullPath.Replace("\\", "/");
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    FileSystem.PullFile(fullpath, Path.GetDirectoryName(saveFileDialog.FileName));
+                    FileSystem.PullFile(fullpath, Path.GetDirectoryName(saveFileDialog.FileName), out progress);
+                    progressBar.Maximum = 100;
+                    while (progress < 100)
+                    {
+                        progressBar.Value = progress;
+                    }
                 }
             }
         }

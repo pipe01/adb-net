@@ -38,32 +38,31 @@
             this.button3 = new System.Windows.Forms.Button();
             this.tFormBattery = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txbConnect = new ADB_Helper.TextButton();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.lblDeviceModel = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // updDevices
             // 
-            this.updDevices.Enabled = true;
             this.updDevices.Interval = 60000;
             this.updDevices.Tick += new System.EventHandler(this.updDevices_Tick);
             // 
             // updTask
             // 
-            this.updTask.WorkerReportsProgress = true;
             this.updTask.DoWork += new System.ComponentModel.DoWorkEventHandler(this.updTask_DoWork);
-            this.updTask.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.updTask_ProgressChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(158, 123);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(228, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -73,10 +72,12 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 152);
+            this.listBox1.Location = new System.Drawing.Point(12, 207);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(450, 147);
+            this.listBox1.Size = new System.Drawing.Size(528, 108);
             this.listBox1.TabIndex = 14;
             // 
             // button5
@@ -91,11 +92,12 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(158, 12);
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(206, 167);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(77, 34);
             this.button3.TabIndex = 18;
-            this.button3.Text = "Configurate";
+            this.button3.Text = "Configuration";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -106,7 +108,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txbConnect);
+            this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -115,15 +117,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "WiFi";
             // 
-            // txbConnect
+            // btnConnect
             // 
-            this.txbConnect.ButtonText = "Connect to";
-            this.txbConnect.Location = new System.Drawing.Point(6, 19);
-            this.txbConnect.Name = "txbConnect";
-            this.txbConnect.Size = new System.Drawing.Size(75, 23);
-            this.txbConnect.TabIndex = 19;
-            this.txbConnect.Value = "";
-            this.txbConnect.OKClicked += new System.EventHandler(this.txbConnect_OKClicked);
+            this.btnConnect.Location = new System.Drawing.Point(6, 19);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(75, 23);
+            this.btnConnect.TabIndex = 16;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // trayIcon
             // 
@@ -133,9 +135,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 123);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(303, 167);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(75, 34);
             this.button2.TabIndex = 21;
             this.button2.Text = "FileXplorer";
             this.button2.UseVisualStyleBackColor = true;
@@ -145,7 +148,7 @@
             // 
             this.lblDeviceModel.AutoSize = true;
             this.lblDeviceModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeviceModel.Location = new System.Drawing.Point(9, 96);
+            this.lblDeviceModel.Location = new System.Drawing.Point(14, 94);
             this.lblDeviceModel.Name = "lblDeviceModel";
             this.lblDeviceModel.Size = new System.Drawing.Size(17, 22);
             this.lblDeviceModel.TabIndex = 22;
@@ -153,7 +156,8 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(158, 41);
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(384, 167);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 34);
             this.button4.TabIndex = 23;
@@ -161,22 +165,10 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // batteryDisplay1
-            // 
-            this.batteryDisplay1.AC = false;
-            this.batteryDisplay1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("batteryDisplay1.BackgroundImage")));
-            this.batteryDisplay1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.batteryDisplay1.BatteryLevel = 0;
-            this.batteryDisplay1.DrawPercNumber = true;
-            this.batteryDisplay1.Location = new System.Drawing.Point(239, 12);
-            this.batteryDisplay1.MakeTransparent = true;
-            this.batteryDisplay1.Name = "batteryDisplay1";
-            this.batteryDisplay1.Size = new System.Drawing.Size(231, 134);
-            this.batteryDisplay1.TabIndex = 9;
-            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(158, 81);
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(465, 167);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 34);
             this.button6.TabIndex = 24;
@@ -186,19 +178,47 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(77, 123);
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button7.Location = new System.Drawing.Point(12, 167);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.Size = new System.Drawing.Size(75, 34);
             this.button7.TabIndex = 25;
-            this.button7.Text = "button7";
+            this.button7.Text = "Restart all consoles";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button8.Location = new System.Drawing.Point(93, 167);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 34);
+            this.button8.TabIndex = 27;
+            this.button8.Text = "Kill all consoles";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click_1);
+            // 
+            // batteryDisplay1
+            // 
+            this.batteryDisplay1.AC = false;
+            this.batteryDisplay1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.batteryDisplay1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("batteryDisplay1.BackgroundImage")));
+            this.batteryDisplay1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.batteryDisplay1.BatteryLevel = 40;
+            this.batteryDisplay1.DrawPercNumber = true;
+            this.batteryDisplay1.Location = new System.Drawing.Point(309, 12);
+            this.batteryDisplay1.MakeTransparent = true;
+            this.batteryDisplay1.Name = "batteryDisplay1";
+            this.batteryDisplay1.Size = new System.Drawing.Size(231, 134);
+            this.batteryDisplay1.TabIndex = 26;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 314);
+            this.ClientSize = new System.Drawing.Size(552, 327);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.batteryDisplay1);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
@@ -208,7 +228,6 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.batteryDisplay1);
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Text = "Pipe\'s ADB Helper";
@@ -227,12 +246,10 @@
         #endregion
         private System.Windows.Forms.Timer updDevices;
         private System.ComponentModel.BackgroundWorker updTask;
-        private BatteryDisplay batteryDisplay1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
-        private TextButton txbConnect;
         private System.Windows.Forms.Timer tFormBattery;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NotifyIcon trayIcon;
@@ -241,5 +258,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnConnect;
+        public BatteryDisplay batteryDisplay1;
+        private System.Windows.Forms.Button button8;
     }
 }

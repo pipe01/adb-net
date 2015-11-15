@@ -30,5 +30,22 @@ namespace ADB_Helper
         {
 
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshApps();
+        }
+
+        private void btnPullAPK_Click(object sender, EventArgs e)
+        {
+            if (lvApps.SelectedItems.Count == 0) return;
+            foreach (ListViewItem item in lvApps.SelectedItems)
+            {
+                if (FileSystem.Exists("/data/app/" + item.Text + "-1"))
+                {
+
+                }
+            }
+        }
     }
 }

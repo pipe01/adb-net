@@ -81,5 +81,10 @@ namespace ADB_Helper
         {
             config.Modify("updateInterval", numericUpDown1.Value.ToString());
         }
+
+        private void cbEnableDevice_CheckedChanged(object sender, EventArgs e)
+        {
+            config.Modify("connectAtStartup", cbEnableDevice.Checked.ToString());
+        }
     }
 }

@@ -61,10 +61,11 @@ namespace ADB_Helper
 
         private void Init()
         {
-            var trace = new StackTrace(true);
+            /*var trace = new StackTrace(true);
             var frame = trace.GetFrame(0);
             var sourceCodeFile = Path.GetDirectoryName(frame.GetFileName());
-            root = Path.Combine( sourceCodeFile, "bin/Debug/");
+            root = Path.Combine( sourceCodeFile, "bin/Debug/");*/
+            root = ".";
         }
 
         public void RefreshImg()
@@ -73,6 +74,7 @@ namespace ADB_Helper
             {
                 if (root == null) Init();
                 if (root.Contains("Controls")) return;
+                if (!File.Exists(root + "/res/batteryLevel.png")) return;
 
                 Bitmap res = new Bitmap(231, 134);
                 Bitmap batLevel = Image.FromFile(root + "/res/batteryLevel.png") as Bitmap;

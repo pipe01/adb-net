@@ -33,7 +33,7 @@ namespace ADB_Helper
             trayIcon.Icon = this.Icon;
             CConsole.LogWritten += Cconsole_LogWritten;
             LoadConfig();
-            updDevices_Tick(sender, e);
+            //updDevices_Tick(sender, e);
         }
 
         private delegate void AddLineDelegate(string line);
@@ -59,19 +59,30 @@ namespace ADB_Helper
                 updTask.RunWorkerAsync();
         }
 
-        private delegate void UpdDeviceModelDelegate(string txt);
-        private void UpdDeviceModel(string txt)
+        private delegate void UpdDeviceDelegate(string txt);
+        private void UpdDevice(string txt)
         {
             Device dev = Device.GetDeviceByName(txt);
             if (dev == null)
             {
-                this.Text = "Pipe's ADB Helper" + (txt == "null" ? null : " - " + txt);
-                lblDeviceModel.Text = txt == "null" ? "-" : txt;
+                this.Text = "Pipe's ADB Helper";
+                lblDeviceModel.Text = "-";
             }
             else
             {
                 this.Text = "Pipe's ADB Helper - " + dev.vendor + " " + dev.name;
                 lblDeviceModel.Text = dev.vendor + " " + dev.name;
+                if (pAC != AC)
+                {
+                    batteryForm.batteryDisplay1.AC = AC;
+                    batteryForm.batteryDisplay1.BatteryLevel = blvl;
+                    batteryForm.Show();
+                    tFormBattery.Start();
+                }
+                batteryDisplay1.AC = AC;
+                batteryDisplay1.BatteryLevel = blvl;
+                batteryDisplay1.RefreshImg();
+                batteryDisplay1.Refresh();
             }
         }
 
@@ -81,40 +92,27 @@ namespace ADB_Helper
         bool AC,pAC;
         private void updTask_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (AndroidDevice.IsDevicePresent())
+            bool present = AndroidDevice.IsDevicePresent();
+            if (present)
             {
                 BatteryStatus status = AndroidDevice.GetBatteryStatus();
                 blvl = status.Level;
                 pAC = AC;
                 AC = status.ACConnected;
-                //this.Invoke(new UpdDeviceModelDelegate(UpdDeviceModel), AndroidDevice.GetDeviceModel());
-                updTask.ReportProgress(0);
+                this.Invoke(new UpdDeviceDelegate(UpdDevice), AndroidDevice.GetDeviceModel());
             }
             else
             {
-                this.Invoke(new UpdDeviceModelDelegate(UpdDeviceModel), "null");
+                this.Invoke(new UpdDeviceDelegate(UpdDevice), "null");
                 blvl = 0;
                 AC = false;
             }
 
         }
 
-        private void updTask_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            if (pAC != AC)
-            {
-                batteryForm.batteryDisplay1.AC = AC;
-                batteryForm.batteryDisplay1.BatteryLevel = blvl;
-                batteryForm.Show();
-                tFormBattery.Start();
-            }
-            batteryDisplay1.AC = AC;
-            batteryDisplay1.BatteryLevel = blvl;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            updDevices_Tick(sender, e);
+            updTask.RunWorkerAsync();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -144,10 +142,13 @@ namespace ADB_Helper
 
         private void frmMain_Shown(object sender, EventArgs e)
         {
-            string ip = config.Get("defaultDeviceIp");
-            if (ip != null)
-                AndroidDevice.ConnectOverWifi(ip);
-            updDevices_Tick(sender, e);
+            if (config.Get("connectAtStartup") == "true")
+            {
+                string ip = config.Get("defaultDeviceIp");
+                if (ip != null)
+                    AndroidDevice.ConnectOverWifi(ip);
+                updDevices_Tick(sender, e);
+            }
         }
 
         private void tFormBattery_Tick(object sender, EventArgs e)
@@ -192,13 +193,33 @@ namespace ADB_Helper
             CConsole.RestartAll();
         }
 
-        private void txbConnect_OKClicked(object sender, EventArgs e)
+        private void txbConnect_Load(object sender, EventArgs e)
         {
-            if (AndroidDevice.ConnectOverWifi(txbConnect.Value))
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            if (AndroidDevice.ConnectOverWifi(config.Get("defaultDeviceIp")))
             {
                 CConsole.RestartAll();
                 updTask.RunWorkerAsync();
             }
+        }
+
+        private void button8_Click_1(object sender, EventArgs e)
+        {
+            CConsole.KillAll();
+        }
+
+        private void txbConnect_OKClicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

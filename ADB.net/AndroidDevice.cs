@@ -96,12 +96,12 @@ namespace ADB.net
                     present = true;
                     ret = true;
                 }
-                else if (output == "null" && present == false)
+                else if (output == "done" && present == false)
                 {
                     ret = true;
                 }
             };
-            CConsole.GCFM("devices").ExecuteCommand("adb devices");
+            CConsole.GCFM("devices").ExecuteCommand("adb devices & echo done");
 
             while (!ret)
                 Application.DoEvents();

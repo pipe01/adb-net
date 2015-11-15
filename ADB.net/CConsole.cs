@@ -41,6 +41,7 @@ namespace ADB.net
                 consoleP.StartInfo.RedirectStandardInput = true;
                 consoleP.StartInfo.CreateNoWindow = !showWindows;
                 consoleP.StartInfo.FileName = "CMD.exe";
+                consoleP.StartInfo.Arguments = "/K";
                 consoleP.Start();
                 consoleP.BeginOutputReadLine();
             }
@@ -75,6 +76,17 @@ namespace ADB.net
                 consoleP.WaitForExit();
                 consoleP = null;
                 Init();
+            }
+        }
+
+        public void KillConsole()
+        {
+            if (consoleP != null)
+            {
+                consoleP.Kill();
+                consoleP.WaitForExit();
+                consoleP = null;
+                memCache.Remove(ID);
             }
         }
 
@@ -128,6 +140,14 @@ namespace ADB.net
             foreach (var item in memCache)
             {
                 (item.Value as CConsole).RestartConsole();
+            }
+        }
+
+        public static void KillAll()
+        {
+            foreach (var item in memCache)
+            {
+                (item.Value as CConsole).KillConsole();
             }
         }
 

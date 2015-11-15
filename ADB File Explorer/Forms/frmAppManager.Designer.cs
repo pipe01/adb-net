@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.lvApps = new System.Windows.Forms.ListView();
-            this.label1 = new System.Windows.Forms.Label();
             this.colPackageName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
             this.btnUninstall = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnPullAPK = new System.Windows.Forms.Button();
+            this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // lvApps
@@ -47,6 +49,11 @@
             this.lvApps.UseCompatibleStateImageBehavior = false;
             this.lvApps.View = System.Windows.Forms.View.Details;
             // 
+            // colPackageName
+            // 
+            this.colPackageName.Text = "Package Name";
+            this.colPackageName.Width = 200;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -55,11 +62,6 @@
             this.label1.Size = new System.Drawing.Size(118, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Currently installed apps:";
-            // 
-            // colPackageName
-            // 
-            this.colPackageName.Text = "Package Name";
-            this.colPackageName.Width = 200;
             // 
             // btnUninstall
             // 
@@ -78,12 +80,28 @@
             this.btnRefresh.TabIndex = 3;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnPullAPK
+            // 
+            this.btnPullAPK.Location = new System.Drawing.Point(93, 347);
+            this.btnPullAPK.Name = "btnPullAPK";
+            this.btnPullAPK.Size = new System.Drawing.Size(75, 23);
+            this.btnPullAPK.TabIndex = 4;
+            this.btnPullAPK.Text = "Pull APK";
+            this.btnPullAPK.UseVisualStyleBackColor = true;
+            this.btnPullAPK.Click += new System.EventHandler(this.btnPullAPK_Click);
+            // 
+            // folderBrowser
+            // 
+            this.folderBrowser.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
             // frmAppManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 379);
+            this.Controls.Add(this.btnPullAPK);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnUninstall);
             this.Controls.Add(this.label1);
@@ -103,5 +121,7 @@
         private System.Windows.Forms.ColumnHeader colPackageName;
         private System.Windows.Forms.Button btnUninstall;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnPullAPK;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowser;
     }
 }

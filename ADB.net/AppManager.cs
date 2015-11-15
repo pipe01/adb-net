@@ -17,7 +17,7 @@ namespace ADB.net
             {
                 if (output.StartsWith("package:"))
                 {
-                    ls1.Add(new App(output.Substring("package:".Length - 1)));
+                    ls1.Add(new App(output.Substring("package:".Length)));
                 }
                 else if (output.Contains("@done@"))
                     done = true;
@@ -28,6 +28,25 @@ namespace ADB.net
                 Application.DoEvents();
 
             return ls1;
+        }
+
+        public static bool PullInstalledAPK(string package)
+        {
+            bool done = false;
+            bool errored = false;
+            string apkpath = "";
+
+            apkpath = "/data/app/" + package + "*";
+
+            CConsole.GCFM("apps").OutputReceived += (output, e) =>
+            {
+                if (output == "no")
+                    errored = true;
+                else if (output == "done")
+                    done = true;
+            };
+            CConsole.GCFM("apps").ExecuteCommand("");
+            return false;
         }
     }
 }
