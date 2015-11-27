@@ -48,6 +48,7 @@
     <Compile Include="AppManager.cs" />
     <Compile Include="BatteryStatus.cs" />
     <Compile Include="CConsole.cs" />
+    <Compile Include="ConsoleLog.cs" />
     <Compile Include="DeviceScreen.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

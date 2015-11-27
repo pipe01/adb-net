@@ -13,7 +13,6 @@ namespace ADB.net
 {
     public class CConsole
     {
-        public delegate void LogHandler(string line, EventArgs e);
         public event OutputHandler OutputReceived;
         public delegate void OutputHandler(string output, EventArgs e);
 
@@ -67,7 +66,7 @@ namespace ADB.net
             }
             if (e.Data != null && e.Data != "" && outputToLog)
             {
-                WriteToLog(e.Data);
+                ConsoleLog.WriteToLog(e.Data, ID);
             }
         }
 
@@ -93,20 +92,12 @@ namespace ADB.net
             }
         }
 
-        public void WriteToLog(string str)
-        {
-            log.Add(str);
-            if (LogWritten != null)
-                LogWritten(ID + ": " + str, EventArgs.Empty);
-        }
-
         public void SendCntrlC()
         {
             consoleP.StandardInput.WriteLine("x3");
         }
 
         #region "Static"
-        public static event LogHandler LogWritten;
         public static MemoryCache memCache = new MemoryCache("PathCache", new NameValueCollection()
                                     {
                                       { "CacheMemoryLimitMegabytes", "256" },
@@ -154,7 +145,6 @@ namespace ADB.net
             }
         }
 
-        public static List<string> log = new List<string>();
         #endregion
     }
 }

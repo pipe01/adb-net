@@ -31,7 +31,7 @@ namespace ADB_Helper
         private void frmMain_Load(object sender, EventArgs e)
         {
             trayIcon.Icon = this.Icon;
-            CConsole.LogWritten += Cconsole_LogWritten;
+            ConsoleLog.LogWritten += Cconsole_LogWritten;
             LoadConfig();
             //updDevices_Tick(sender, e);
         }
