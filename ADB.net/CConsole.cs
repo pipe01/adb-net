@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Caching;
 using System.Collections.Specialized;
+using System.Text.RegularExpressions;
 
 namespace ADB.net
 {
@@ -20,6 +21,8 @@ namespace ADB.net
 
         public bool showWindows = false;
         public bool outputToLog = true;
+
+        public string outputFilter = "[*]";
 
         private Process consoleP;
 
@@ -59,7 +62,7 @@ namespace ADB.net
             if (OutputReceived != null)
             {
                 if (e.Data != null && e.Data.Split('@')[0].Contains(">")) return;
-                if (e.Data != null)
+                if (e.Data != null) //&& Regex.IsMatch(e.Data, outputFilter))
                     OutputReceived(e.Data, e);
             }
             if (e.Data != null && e.Data != "" && outputToLog)

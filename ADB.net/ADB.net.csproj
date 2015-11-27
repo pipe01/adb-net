@@ -51,6 +51,8 @@
     <Compile Include="DeviceScreen.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WiFiNetwork.cs" />
+    <Compile Include="WiFiStatus.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
