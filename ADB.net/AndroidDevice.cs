@@ -110,6 +110,23 @@ namespace ADB.net
         }
 
         /// <summary>
+        /// Waits until a device is connected and up
+        /// </summary>
+        /// <returns></returns>
+        public static void WaitForDevice()
+        {
+            bool done = false;
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
+            {
+                if (output == "done") done = true;
+            };
+            CConsole.GCFM("devices").ExecuteCommand("adb wait-for-device & echo done");
+
+            while (!done)
+                Application.DoEvents();
+        }
+
+        /// <summary>
         /// If there is a device connected, returns the device's model (ro.product.model)
         /// </summary>
         /// <returns></returns>
