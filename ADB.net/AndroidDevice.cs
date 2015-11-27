@@ -81,6 +81,38 @@ namespace ADB.net
             return status;
         }
 
+        public enum AdbState
+        {
+            Offline,
+            Bootloader,
+            Device,
+            Unknown
+        }
+        /// <summary>
+        /// Returns the current ADB state
+        /// </summary>
+        /// <returns></returns>
+        public static AdbState GetState()
+        {
+            AdbState ret = AdbState.Unknown;
+            bool done;
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
+            {
+                switch(output)
+                {
+                    case "offline": ret = AdbState.Offline; break;
+                    case "bootloader": ret = AdbState.Bootloader; break;
+                    case "device": ret = AdbState.Device; break;
+                }
+            };
+            CConsole.GCFM("devices").ExecuteCommand("adb get-state");
+
+            while (ret == AdbState.Unknown)
+                Application.DoEvents();
+
+            return ret;
+        }
+
         /// <summary>
         /// Detects if any device is connected and online, either WiFi or USB.
         /// </summary>
@@ -110,7 +142,7 @@ namespace ADB.net
         }
 
         /// <summary>
-        /// Waits until a device is connected and up
+        /// Waits until a device is connected
         /// </summary>
         /// <returns></returns>
         public static void WaitForDevice()
