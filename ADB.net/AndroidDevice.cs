@@ -100,20 +100,20 @@ namespace ADB.net
         /// <returns></returns>
         public static AdbState GetState()
         {
+            ManualResetEvent mre = new ManualResetEvent(false);
             AdbState ret = AdbState.Unknown;
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 switch(output)
                 {
-                    case "offline": ret = AdbState.Offline; break;
-                    case "bootloader": ret = AdbState.Bootloader; break;
-                    case "device": ret = AdbState.Device; break;
+                    case "offline": ret = AdbState.Offline; mre.Set(); break;
+                    case "bootloader": ret = AdbState.Bootloader; mre.Set(); break;
+                    case "device": ret = AdbState.Device; mre.Set(); break;
                 }
             };
             CConsole.GCFM("devices").ExecuteCommand("adb get-state");
 
-            while (ret == AdbState.Unknown)
-                Application.DoEvents();
+            mre.WaitOne();
 
             return ret;
         }
