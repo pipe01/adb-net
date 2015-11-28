@@ -31,7 +31,6 @@ namespace ADB.net
             };
             string cmd = "adb shell \"cd " + filename + " && echo yes\" & echo done";
             CConsole.GCFM("fs2").ExecuteCommand(cmd);
-            //consoleFS1.ExecuteCommand("adb shell [ -d \"${0}\" ] && echo \"yes\" || echo \"no\"", filename);
 
             while (!done)
                 Application.DoEvents();
