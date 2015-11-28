@@ -54,12 +54,15 @@ namespace ADB.net
                 if (output == "" || output == null || output == "null" ||
                                     output.Contains("Not a directory") ||
                                     output.Contains("Permission denied")) return;
+
                 if (output == "terminado")
                 {
                     mre.Set();
                     return;
                 }
+
                 entries.Add(output);
+
                 if (recursive && IsDirectory(path + "/" + output))
                 {
                     entries.AddRange(GetAllEntries(path + "/" + output, true));

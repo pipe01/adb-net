@@ -107,7 +107,6 @@ namespace ADB_Helper
                 blvl = 0;
                 AC = false;
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
