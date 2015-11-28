@@ -49,11 +49,12 @@ namespace ADB.net
             }
         }
 
-        public void ExecuteCommand(string command)
+        public void ExecuteCommand(string command, bool wait = false)
         {
             consoleP.StandardInput.WriteLine("@" + command);
             consoleP.StandardInput.Flush();
-
+            if (wait)
+                consoleP.WaitForInputIdle();
         }
 
         private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
