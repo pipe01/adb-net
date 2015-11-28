@@ -133,7 +133,7 @@
   <data name="batteryDisplay1.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAOcAAACGCAYAAAAmXJ3fAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAB4NJREFUeF7t3f/rnWMcx/HPf7JaKaWUqFHKEqlJKVK0FCk1FNGSRZJ8WSRpm0Qy
+        vQAADr0BR/uQrQAAB4NJREFUeF7t3f/rnWMcx/HPf7JaKaWUqFHKEqlJKVK0FCk1FNGSRZJ8WSRpm0Qy
         RPJdshaShZYsTQvJQpKFRBKR2+s6dZ+dL6/r7Jxz3ff53Oe8n+96/OC+7133/dnZs/ucszNnbUFTAR0T
         btxvArBsVmbcDwesiqUc94MAq2opxl04EEVnx10sEE3nxl0kEFUnxl0YgHUed0EAjlu3cRcDYNjCx10E
         AG9h404+tc1rm6vqnLWqOlfOkwtki1wkF8slcplcLlvlSrlKrpFrZZvcIDfKzbJdbpUdcofcKXfJ3XKP
@@ -169,6 +169,6 @@
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>40</value>
   </metadata>
 </root>

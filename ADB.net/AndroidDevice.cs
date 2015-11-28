@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,6 +56,7 @@ namespace ADB.net
         /// <returns>A BatteryStatus object with the battery's current status.</returns>  
         public static BatteryStatus GetBatteryStatus()
         {
+            ManualResetEvent mre = new ManualResetEvent(true);
             BatteryStatus status = new BatteryStatus();
             string lvl = null;
             string ac = null;
@@ -62,19 +64,23 @@ namespace ADB.net
             CConsole.GCFM("battery").OutputReceived += (output, e) =>
             {
                 if (output.Contains("level:") && !output.Contains("level: 50"))
+                {
                     lvl = output.Trim();
+                    mre.Set();
+                }
                 else if (output.Contains("AC powered:"))
+                {
                     ac = output.Trim().Split()[2];
+                    mre.Set();
+                }
             };
             CConsole.GCFM("battery").ExecuteCommand("adb shell dumpsys battery");
 
-            while (lvl == null)
-                Application.DoEvents();
+            mre.WaitOne();
 
             status.Level = int.Parse(lvl.Split()[1]);
 
-            while (ac == null)
-                Application.DoEvents();
+            mre.WaitOne();
 
             status.ACConnected = bool.Parse(ac);
 
@@ -95,7 +101,6 @@ namespace ADB.net
         public static AdbState GetState()
         {
             AdbState ret = AdbState.Unknown;
-            bool done;
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 switch(output)
@@ -120,23 +125,22 @@ namespace ADB.net
         public static bool IsDevicePresent()
         {
             bool present = false;
-            bool ret = false;
+            ManualResetEvent mre = new ManualResetEvent(true);
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output.Contains("\t") && output.Contains("device"))
                 {
                     present = true;
-                    ret = true;
+                    mre.Set();
                 }
                 else if (output == "done" && present == false)
                 {
-                    ret = true;
+                    mre.Set();
                 }
             };
             CConsole.GCFM("devices").ExecuteCommand("adb devices & echo done");
 
-            while (!ret)
-                Application.DoEvents();
+            mre.WaitOne();
 
             return present;
         }
@@ -147,15 +151,14 @@ namespace ADB.net
         /// <returns></returns>
         public static void WaitForDevice()
         {
-            bool done = false;
+            ManualResetEvent mre = new ManualResetEvent(true);
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
-                if (output == "done") done = true;
+                if (output == "done") mre.Set();
             };
             CConsole.GCFM("devices").ExecuteCommand("adb wait-for-device & echo done");
 
-            while (!done)
-                Application.DoEvents();
+            mre.WaitOne();
         }
 
         /// <summary>
@@ -164,25 +167,24 @@ namespace ADB.net
         /// <returns></returns>
         public static string GetDeviceModel()
         {
-            bool ret = false;
+            ManualResetEvent mre = new ManualResetEvent(true);
             string model = null;
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output.Contains("error"))
                 {
                     model = "error";
-                    ret = true;
+                    mre.Set();
                 }
                 else if (output != "" && output != null && output != "null")
                 {
                     model = output;
-                    ret = true;
+                    mre.Set();
                 }
             };
             CConsole.GCFM("devices").ExecuteCommand("adb shell getprop ro.product.model");
 
-            while (!ret)
-                Application.DoEvents();
+            mre.WaitOne();
 
             return model;
         }

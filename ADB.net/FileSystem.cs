@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,7 +17,7 @@ namespace ADB.net
         /// <returns></returns>
         public static bool IsDirectory(string filename)
         {
-            bool done = false;
+            ManualResetEvent mre = new ManualResetEvent(true);
             bool isd = false;
             CConsole.GCFM("fs2").OutputReceived += (output, e) =>
             {
@@ -26,14 +27,13 @@ namespace ADB.net
                 }
                 else if (output == "done")
                 {
-                    done = true;
+                    mre.Set();
                 }
             };
             string cmd = "adb shell \"cd " + filename + " && echo yes\" & echo done";
             CConsole.GCFM("fs2").ExecuteCommand(cmd);
 
-            while (!done)
-                Application.DoEvents();
+            mre.WaitOne();
 
             return isd;
         }
@@ -47,7 +47,7 @@ namespace ADB.net
         /// <returns></returns>
         public static List<string> GetAllEntries(string path, bool recursive = false, bool sort = true)
         {
-            bool ret = false;
+            ManualResetEvent mre = new ManualResetEvent(true);
             List<string> entries = new List<string>();
             CConsole.GCFM("fs1").OutputReceived += (output, e) =>
             {
@@ -56,7 +56,7 @@ namespace ADB.net
                                     output.Contains("Permission denied")) return;
                 if (output == "terminado")
                 {
-                    ret = true;
+                    mre.Set();
                     return;
                 }
                 entries.Add(output);
@@ -67,8 +67,7 @@ namespace ADB.net
             };
             CConsole.GCFM("fs1").ExecuteCommand("adb shell cd \"" + path + "\";ls; echo terminado");
 
-            while (!ret)
-                Application.DoEvents();
+            mre.WaitOne();
 
             if (sort)
             {
@@ -79,22 +78,21 @@ namespace ADB.net
 
         public static bool Exists(string path)
         {
+            ManualResetEvent mre = new ManualResetEvent(true);
             bool exists = false;
-            bool done = false;
             CConsole.GCFM("fs2").OutputReceived += (output, e) => 
             {
                 if (output == "yes")
                 {
                     exists = true;
-                    done = true;
+                    mre.Set();
                 } else if (output == "no") {
-                    done = true;
+                    mre.Set();
                 }
             };
             CConsole.GCFM("fs2").ExecuteCommand("adb shell [ -e " + path + "]; then echo yes; else echo no; fi;");
 
-            while (!done)
-                Application.DoEvents();
+            mre.WaitOne();
 
             return exists;
         }

@@ -92,8 +92,8 @@ namespace ADB_Helper
         bool AC,pAC;
         private void updTask_DoWork(object sender, DoWorkEventArgs e)
         {
-            bool present = AndroidDevice.IsDevicePresent();
-            if (present)
+            AndroidDevice.AdbState present = AndroidDevice.GetState();
+            if (present == AndroidDevice.AdbState.Device)
             {
                 BatteryStatus status = AndroidDevice.GetBatteryStatus();
                 blvl = status.Level;
