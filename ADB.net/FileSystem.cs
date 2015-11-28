@@ -31,7 +31,12 @@ namespace ADB.net
                     ret = true;
                 }
             };
-            string cmd = "adb shell \"cd " + filename + " && echo yes\" & echo done";
+            string cmd = "cd " + filename + " && echo yes; echo done";
+            if (AndroidDevice.IsRooted())
+            {
+                CConsole.GCFM("fs2").ExecuteCommand("adb shell");
+                CConsole.GCFM("fs2").ExecuteCommand("su");
+            }
             CConsole.GCFM("fs2").ExecuteCommand(cmd);
 
             while (!ret)
