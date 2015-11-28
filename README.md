@@ -15,4 +15,10 @@ All features may not work on some devices. If that happens to you, please report
 - (!) Get WiFi info
 - (!) Manage apps
 
+##How it works
+The first time any feature is used, a hidden cmd.exe is created with redirected input and output. When the function is called, the corresponding cmd command is executed.
+
+# ADB File Explorer
+It actually does more than exploring files, but I use it to test the features that I add to adb.net. You can also use it as a demo, but it's even more buggy than the library itself.
+
 **I AM NOT RESPONSIBLE FOR ANY DAMAGE THAT MAY BE CAUSED TO YOUR DEVICE. I CAN'T TEST THE LIBRARY WITH EVERY PHONE IN THE MARKET, SO WHEN YOU USE THE LIBRARY YOU ASSUME ALL THE RESPONSABILITIES.** My library shouldn't cause any damage, but still, there's always a possibility of something going wrong.
