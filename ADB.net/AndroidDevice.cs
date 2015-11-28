@@ -80,6 +80,7 @@ namespace ADB.net
 
             status.ACConnected = bool.Parse(ac);
 
+            mre.Reset();
             mre.WaitOne();
 
             status.Level = int.Parse(lvl.Split()[1]);
