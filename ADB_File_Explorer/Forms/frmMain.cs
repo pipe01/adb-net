@@ -193,16 +193,6 @@ namespace ADB_Helper
             CConsole.RestartAll();
         }
 
-        private void txbConnect_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (AndroidDevice.ConnectOverWifi(config.Get("defaultDeviceIp")))
