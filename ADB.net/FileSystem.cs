@@ -24,6 +24,7 @@ namespace ADB.net
                 if (output == "yes")
                 {
                     isd = true;
+                    mre.Set();
                 }
                 else if (output == "done")
                 {
@@ -49,6 +50,7 @@ namespace ADB.net
         {
             ManualResetEvent mre = new ManualResetEvent(false);
             List<string> entries = new List<string>();
+
             CConsole.GCFM("fs1").OutputReceived += (output, e) =>
             {
                 if (output == "" || output == null || output == "null" ||
