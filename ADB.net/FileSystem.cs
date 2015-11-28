@@ -14,36 +14,6 @@ namespace ADB.net
         /// </summary>
         /// <param name="filename">Path to check</param>
         /// <returns></returns>
-        public static bool IsDirectory2(string filename)
-        {
-            bool ret, ex;
-            ret = false;
-            ex = false;
-            CConsole.GCFM("fs2").OutputReceived += (output, e) =>
-            {
-                if (output == "yes")
-                {
-                    ret = true;
-                    ex = true;
-                }
-                else if (output == "no")
-                {
-                    ret = true;
-                    ex = false;
-                }
-            };
-            CConsole.GCFM("fs2").ExecuteCommand("adb shell if [ -d \"" + filename + "\" ]; then echo \"yes\"; else echo \"no\"; fi;");
-
-            while (!ret)
-                Application.DoEvents();
-
-            return ex;
-        }
-        /// <summary>
-        /// Checks if the indicated path is a directory
-        /// </summary>
-        /// <param name="filename">Path to check</param>
-        /// <returns></returns>
         public static bool IsDirectory(string filename)
         {
             bool done = false;

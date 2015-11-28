@@ -207,7 +207,6 @@ namespace ADB_Helper
         {
             if (AndroidDevice.ConnectOverWifi(config.Get("defaultDeviceIp")))
             {
-                CConsole.RestartAll();
                 updTask.RunWorkerAsync();
             }
         }
@@ -215,11 +214,6 @@ namespace ADB_Helper
         private void button8_Click_1(object sender, EventArgs e)
         {
             CConsole.KillAll();
-        }
-
-        private void txbConnect_OKClicked(object sender, EventArgs e)
-        {
-
         }
     }
 }
