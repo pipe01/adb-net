@@ -17,24 +17,25 @@ namespace ADB.net
         /// <returns></returns>
         public static bool IsDirectory(string filename)
         {
-            ManualResetEvent mre = new ManualResetEvent(false);
+            bool ret = false;
             bool isd = false;
             CConsole.GCFM("fs2").OutputReceived += (output, e) =>
             {
                 if (output == "yes")
                 {
                     isd = true;
-                    mre.Set();
+                    ret = true;
                 }
                 else if (output == "done")
                 {
-                    mre.Set();
+                    ret = true;
                 }
             };
             string cmd = "adb shell \"cd " + filename + " && echo yes\" & echo done";
             CConsole.GCFM("fs2").ExecuteCommand(cmd);
 
-            mre.WaitOne();
+            while (!ret)
+                Application.DoEvents();
 
             return isd;
         }
@@ -48,7 +49,7 @@ namespace ADB.net
         /// <returns></returns>
         public static List<string> GetAllEntries(string path, bool recursive = false, bool sort = true)
         {
-            ManualResetEvent mre = new ManualResetEvent(false);
+            bool ret = false;
             List<string> entries = new List<string>();
 
             CConsole.GCFM("fs1").OutputReceived += (output, e) =>
@@ -59,7 +60,7 @@ namespace ADB.net
 
                 if (output == "terminado")
                 {
-                    mre.Set();
+                    ret = true;
                     return;
                 }
 
@@ -72,7 +73,8 @@ namespace ADB.net
             };
             CConsole.GCFM("fs1").ExecuteCommand("adb shell \"cd '" + path + "' && ls; echo terminado\"");
 
-            mre.WaitOne();
+            while (!ret)
+                Application.DoEvents();
 
             if (sort)
             {
