@@ -17,7 +17,7 @@ namespace ADB.net
         /// <returns></returns>
         public static bool IsDirectory(string filename)
         {
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             bool isd = false;
             CConsole.GCFM("fs2").OutputReceived += (output, e) =>
             {
@@ -47,7 +47,7 @@ namespace ADB.net
         /// <returns></returns>
         public static List<string> GetAllEntries(string path, bool recursive = false, bool sort = true)
         {
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             List<string> entries = new List<string>();
             CConsole.GCFM("fs1").OutputReceived += (output, e) =>
             {
@@ -78,7 +78,7 @@ namespace ADB.net
 
         public static bool Exists(string path)
         {
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             bool exists = false;
             CConsole.GCFM("fs2").OutputReceived += (output, e) => 
             {

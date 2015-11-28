@@ -56,7 +56,7 @@ namespace ADB.net
         /// <returns>A BatteryStatus object with the battery's current status.</returns>  
         public static BatteryStatus GetBatteryStatus()
         {
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             BatteryStatus status = new BatteryStatus();
             string lvl = null;
             string ac = null;
@@ -78,12 +78,12 @@ namespace ADB.net
 
             mre.WaitOne();
 
-            status.Level = int.Parse(lvl.Split()[1]);
+            status.ACConnected = bool.Parse(ac);
 
             mre.WaitOne();
 
-            status.ACConnected = bool.Parse(ac);
-
+            status.Level = int.Parse(lvl.Split()[1]);
+            
             return status;
         }
 
@@ -125,7 +125,7 @@ namespace ADB.net
         public static bool IsDevicePresent()
         {
             bool present = false;
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output.Contains("\t") && output.Contains("device"))
@@ -151,7 +151,7 @@ namespace ADB.net
         /// <returns></returns>
         public static void WaitForDevice()
         {
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 if (output == "done") mre.Set();
@@ -167,7 +167,7 @@ namespace ADB.net
         /// <returns></returns>
         public static string GetDeviceModel()
         {
-            ManualResetEvent mre = new ManualResetEvent(true);
+            ManualResetEvent mre = new ManualResetEvent(false);
             string model = null;
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
