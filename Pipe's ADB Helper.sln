@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADB File Explorer", "ADB File Explorer\ADB File Explorer.csproj", "{0571E588-DD0F-422A-A7E3-43F6C91E5D7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADB_File_Explorer", "ADB_File_Explorer\ADB_File_Explorer.csproj", "{0571E588-DD0F-422A-A7E3-43F6C91E5D7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADB.net", "ADB.net\ADB.net.csproj", "{4D6FE873-DF04-4C85-8A15-6BF7BC6B83E9}"
 EndProject
