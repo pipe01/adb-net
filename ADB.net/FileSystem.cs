@@ -70,7 +70,7 @@ namespace ADB.net
                     entries.AddRange(GetAllEntries(path + "/" + output, true));
                 }
             };
-            CConsole.GCFM("fs1").ExecuteCommand("adb shell cd \"" + path + "\";ls; echo terminado");
+            CConsole.GCFM("fs1").ExecuteCommand("adb shell \"cd '" + path + "' && ls; echo terminado\"");
 
             mre.WaitOne();
 
