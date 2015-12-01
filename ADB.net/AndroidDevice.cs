@@ -29,6 +29,8 @@ namespace ADB.net
             if (AnyDevice && IsDevicePresent(SelectedDeviceSerial)) ; // Any better way of doing this?
             else
             {
+                if (AnyDevice)
+                    SelectedDeviceSerial = GetAllDevices()[0];
                 SelectedDeviceSerial = null;
             }
         }
