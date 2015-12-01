@@ -35,7 +35,8 @@ namespace ADB.net
         #endregion
 
         /// <summary>
-        /// The device in which all the adb commands will be executed on (-s)
+        /// The device in which all the adb commands will be executed on (-s).
+        /// This variable will be set to null if the specified device isn't found
         /// </summary>
         public static string SelectedDeviceSerial;
 
