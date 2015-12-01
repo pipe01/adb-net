@@ -12,6 +12,28 @@ namespace ADB.net
 {
     public class AndroidDevice
     {
+        #region Private Stuff
+        private static bool AnyDevice = false;
+        private static void Update()
+        {
+            if (GetState() == AdbState.Device)
+            {
+                AnyDevice = true;
+            }
+            else
+            {
+                AnyDevice = false;
+                SelectedDeviceSerial = null;
+            }
+
+            if (AnyDevice && IsDevicePresent(SelectedDeviceSerial)) ; // Any better way of doing this?
+            else
+            {
+                SelectedDeviceSerial = null;
+            }
+        }
+        #endregion
+
         /// <summary>
         /// The device in which all the adb commands will be executed on (-s)
         /// </summary>
