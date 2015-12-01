@@ -38,7 +38,9 @@ namespace ADB.net
 
         /// <summary>
         /// The device in which all the adb commands will be executed on (-s).
-        /// This variable will be set to null if the specified device isn't found
+        /// If SelectedDeviceSerial is not set/the device doesnt exist and there is at
+        /// least one device connected, SelectedDeviceSerial will be set to the first
+        /// detected device
         /// </summary>
         public static string SelectedDeviceSerial;
 
