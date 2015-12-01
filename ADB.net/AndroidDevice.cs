@@ -318,5 +318,25 @@ namespace ADB.net
                 if (i != split.Length - 1) SimulateKeyEvent(keycode_space);
             }
         }
+
+        #region Logcat
+        private static Thread LogcatListener;
+
+        private static void LogcatCallback()
+        {
+            CConsole.GCFM("logcat").OutputReceived += (output, e) =>
+            {
+                if (output.Contains("enqueueNotificationInternal"))
+                {
+
+                }
+            };
+        }
+
+        public static void StartLogcatListener()
+        {
+            LogcatListener = new Thread(new ThreadStart(LogcatCallback));
+        }
+        #endregion
     }
 }
