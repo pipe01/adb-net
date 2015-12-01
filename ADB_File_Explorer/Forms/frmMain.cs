@@ -83,6 +83,7 @@ namespace ADB_Helper
                 batteryDisplay1.BatteryLevel = blvl;
                 batteryDisplay1.RefreshImg();
                 batteryDisplay1.Refresh();
+                trayIcon.Text = dev.vendor + " " + dev.name + " (" + blvl.ToString() + "%)";
             }
         }
 
