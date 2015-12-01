@@ -182,7 +182,7 @@ namespace ADB.net
         /// Returns a list with all connected devices and emulators, if any
         /// </summary>
         /// <returns></returns>
-        public List<string> GetAllDevices()
+        public static List<string> GetAllDevices()
         {
             List<string> devs = new List<string>();
             ManualResetEvent mre = new ManualResetEvent(false);
