@@ -79,7 +79,7 @@ namespace ADB.net
                     mre.Set();
                 }
             };
-            CConsole.GCFM("battery").ExecuteCommand("adb shell dumpsys battery");
+            CConsole.GCFM("battery").ExecuteCommand("adb -s " + SelectedDeviceSerial +"  shell dumpsys battery");
 
             mre.WaitOne();
 
@@ -125,16 +125,17 @@ namespace ADB.net
         }
 
         /// <summary>
-        /// Detects if any device is connected and online, either WiFi or USB.
+        /// Checks if the device is connected and online.
         /// </summary>
+        /// <param name="Serial">Serial of the device to check</param>
         /// <returns></returns>
-        public static bool IsDevicePresent()
+        public static bool IsDevicePresent(string Serial)
         {
             bool present = false;
             ManualResetEvent mre = new ManualResetEvent(false);
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
-                if (output.Contains("\t") && output.Contains("device"))
+                if (output.Contains(Serial) && output.Contains("device"))
                 {
                     present = true;
                     mre.Set();
