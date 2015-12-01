@@ -84,6 +84,9 @@ namespace ADB.net
         /// <returns>A BatteryStatus object with the battery's current status.</returns>  
         public static BatteryStatus GetBatteryStatus()
         {
+            Update();
+            if (!AnyDevice) return null;
+
             ManualResetEvent mre = new ManualResetEvent(false);
             BatteryStatus status = new BatteryStatus();
             string lvl = null;
@@ -223,6 +226,9 @@ namespace ADB.net
         /// <returns></returns>
         public static string GetDeviceModel()
         {
+            Update();
+            if (!AnyDevice) return null;
+
             ManualResetEvent mre = new ManualResetEvent(false);
             string model = null;
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
