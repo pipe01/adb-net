@@ -244,7 +244,8 @@ namespace ADB.net
                     mre.Set();
                 }
             };
-            CConsole.GCFM("devices").ExecuteCommand("adb shell getprop ro.product.model");
+            CConsole.GCFM("devices").ExecuteCommand("adb -s " + SelectedDeviceSerial +
+                                                    " shell getprop ro.product.model");
 
             mre.WaitOne();
 
@@ -257,6 +258,9 @@ namespace ADB.net
         /// <returns></returns>
         public static bool IsRooted()
         {
+            Update();
+            if (!AnyDevice) return false;
+
             bool root = false;
             bool ret = false;
             CConsole.GCFM("devices").OutputReceived += (output, e) =>
@@ -270,7 +274,8 @@ namespace ADB.net
                     ret = true;
                 }
             };
-            CConsole.GCFM("devices").ExecuteCommand("adb shell su");
+            CConsole.GCFM("devices").ExecuteCommand("adb -s " + SelectedDeviceSerial + 
+                                                                            " shell su");
 
             while (!ret)
                 Application.DoEvents();
@@ -284,7 +289,11 @@ namespace ADB.net
         /// <param name="keyevent">Key to be simulated. See http://developer.android.com/reference/android/view/KeyEvent.html </param>
         public static void SimulateKeyEvent(string keyevent)
         {
-            CConsole.GCFM("input").ExecuteCommand("adb shell input keyevent " + keyevent);
+            Update();
+            if (!AnyDevice) return;
+
+            CConsole.GCFM("input").ExecuteCommand("adb -s " + SelectedDeviceSerial +
+                                                " shell input keyevent " + keyevent);
         }
 
         /// <summary>
@@ -293,10 +302,15 @@ namespace ADB.net
         /// <param name="str">String to type</param>
         public static void TypeString(string str, string keycode_space = "KEYCODE_SPACE")
         {
+            Update();
+            if (!AnyDevice) return;
+
             string[] split = str.Split(' ');
             for (int i = 0; i < split.Length; i++)
             {
-                CConsole.GCFM("input").ExecuteCommand("adb shell input text \"" + split[i] + "\"");
+                CConsole.GCFM("input").ExecuteCommand("adb -s " + SelectedDeviceSerial + 
+                                            " shell input text \"" + split[i] + "\"");
+
                 if (i != split.Length - 1) SimulateKeyEvent(keycode_space);
             }
         }
