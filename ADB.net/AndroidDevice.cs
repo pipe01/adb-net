@@ -12,6 +12,11 @@ namespace ADB.net
 {
     public class AndroidDevice
     {
+        /// <summary>
+        /// The device in which all the adb commands will be executed on (-s)
+        /// </summary>
+        public static string SelectedDeviceSerial;
+
         /// <summary>  
         /// Connects to a device over WiFi ADB.
         /// </summary>  
@@ -144,6 +149,32 @@ namespace ADB.net
             mre.WaitOne();
 
             return present;
+        }
+
+        /// <summary>
+        /// Returns a list with all connected devices and emulators, if any
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetAllDevices()
+        {
+            List<string> devs = new List<string>();
+            ManualResetEvent mre = new ManualResetEvent(false);
+
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
+            {
+                if (output.Contains("\t"))
+                {
+                    string[] split = output.Split('\t');
+                    if (split[1] == "device")
+                        devs.Add(split[0]);
+                } else if (output == "done")
+                    mre.Set();
+            };
+            CConsole.GCFM("devices").ExecuteCommand("adb devices & echo done");
+
+            mre.WaitOne();
+
+            return devs;
         }
 
         /// <summary>
