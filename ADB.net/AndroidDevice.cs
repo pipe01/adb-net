@@ -26,12 +26,12 @@ namespace ADB.net
                 SelectedDeviceSerial = null;
             }
 
-            if (AnyDevice && IsDevicePresent(SelectedDeviceSerial)) ; // Any better way of doing this?
+            if (AnyDevice && SelectedDeviceSerial != null && IsDevicePresent(SelectedDeviceSerial)) ; // Any better way of doing this?
             else
             {
                 if (AnyDevice)
                     SelectedDeviceSerial = GetAllDevices()[0];
-                SelectedDeviceSerial = null;
+                else SelectedDeviceSerial = null;
             }
         }
         #endregion
@@ -235,7 +235,7 @@ namespace ADB.net
 
             ManualResetEvent mre = new ManualResetEvent(false);
             string model = null;
-            CConsole.GCFM("devices").OutputReceived += (output, e) =>
+            CConsole.GCFM("devices2").OutputReceived += (output, e) =>
             {
                 if (output.Contains("error"))
                 {
@@ -248,7 +248,7 @@ namespace ADB.net
                     mre.Set();
                 }
             };
-            CConsole.GCFM("devices").ExecuteCommand("adb -s " + SelectedDeviceSerial +
+            CConsole.GCFM("devices2").ExecuteCommand("adb -s " + SelectedDeviceSerial +
                                                     " shell getprop ro.product.model");
 
             mre.WaitOne();
