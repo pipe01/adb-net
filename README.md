@@ -24,6 +24,7 @@ The first time any feature is used, a hidden cmd.exe is created with redirected 
 # ADB File Explorer
 It actually does more than exploring files, but I use it to test the features that I add to adb.net. You can also use it as a demo, but it's even more buggy than the library itself.
 
-**I AM NOT RESPONSIBLE FOR ANY DAMAGE THAT MAY BE CAUSED TO YOUR DEVICE. I CAN'T TEST THE LIBRARY WITH EVERY PHONE IN THE MARKET, SO WHEN YOU USE THE LIBRARY YOU ASSUME ALL THE RESPONSABILITIES.** My library shouldn't cause any damage, but still, there's always a possibility of something going wrong.
+##Additional notes
+- **I AM NOT RESPONSIBLE FOR ANY DAMAGE THAT MAY BE CAUSED TO YOUR DEVICE. I CAN'T TEST THE LIBRARY WITH EVERY PHONE IN THE MARKET, SO WHEN YOU USE THE LIBRARY YOU ASSUME ALL THE RESPONSABILITIES.** My library shouldn't cause any damage, but still, there's always a possibility of something going wrong.
 
-I can't provide the ADB binary, as it's against its terms, so you'll have to install it yourself. Sorry!
+- I can't provide the ADB binary, as it's against its terms, so you'll have to install it yourself. Sorry!
