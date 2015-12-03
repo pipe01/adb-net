@@ -321,6 +321,15 @@ namespace ADB.net
 
         #region Logcat
         private static Thread LogcatListener;
+        public delegate void NotificationDelegate(Notification notification);
+        public static event NotificationDelegate NotificationEvent;
+        private static void OnNotificationEvent(Notification n)
+        {
+            if (NotificationEvent != null)
+            {
+                NotificationEvent(n);
+            }
+        }
 
         private static void LogcatCallback()
         {
@@ -328,7 +337,12 @@ namespace ADB.net
             {
                 if (output.Contains("enqueueNotificationInternal"))
                 {
-
+                    string[] split = output.Split();
+                    string package = split[1].Split('=')[1];
+                    int flags = int.Parse(split[8].Split('=')[1]);
+                    Notification n = new Notification(package, flags);
+                    OnNotificationEvent(n);
+                    n = null;
                 }
             };
         }
