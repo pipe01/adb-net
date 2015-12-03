@@ -351,6 +351,11 @@ namespace ADB.net
         {
             LogcatListener = new Thread(new ThreadStart(LogcatCallback));
         }
+        public static void StopLogcatListener()
+        {
+            LogcatListener.Abort();
+            LogcatListener = null;
+        }
         #endregion
     }
 }

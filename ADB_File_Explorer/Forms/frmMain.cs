@@ -22,6 +22,8 @@ namespace ADB_Helper
         }
 
         public ConfigFile config = new ConfigFile();
+        private bool ListeningLogcat = false;
+
         private void LoadConfig()
         {
             config.Load();
@@ -199,6 +201,27 @@ namespace ADB_Helper
             {
                 updTask.RunWorkerAsync();
             }
+        }
+
+        private void btnLogcat_Click(object sender, EventArgs e)
+        {
+            ListeningLogcat = !ListeningLogcat;
+            if (ListeningLogcat)
+            {
+                AndroidDevice.NotificationEvent += AndroidDevice_NotificationEvent;
+                AndroidDevice.StartLogcatListener();
+                btnLogcat.Text = "Logcat Off";
+            }
+            else
+            {
+                AndroidDevice.StopLogcatListener();
+                btnLogcat.Text = "Logcat On";
+            }
+        }
+
+        private void AndroidDevice_NotificationEvent(Notification notification)
+        {
+            MessageBox.Show(notification.PackageName);
         }
 
         private void button8_Click_1(object sender, EventArgs e)

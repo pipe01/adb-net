@@ -47,6 +47,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
+            this.btnLogcat = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(228, 12);
+            this.button1.Location = new System.Drawing.Point(313, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -75,9 +76,9 @@
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 207);
+            this.listBox1.Location = new System.Drawing.Point(12, 292);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(528, 108);
+            this.listBox1.Size = new System.Drawing.Size(613, 108);
             this.listBox1.TabIndex = 14;
             // 
             // button5
@@ -93,7 +94,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(206, 167);
+            this.button3.Location = new System.Drawing.Point(206, 252);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(77, 34);
             this.button3.TabIndex = 18;
@@ -136,7 +137,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(303, 167);
+            this.button2.Location = new System.Drawing.Point(388, 252);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 34);
             this.button2.TabIndex = 21;
@@ -157,7 +158,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(384, 167);
+            this.button4.Location = new System.Drawing.Point(469, 252);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 34);
             this.button4.TabIndex = 23;
@@ -168,7 +169,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(465, 167);
+            this.button6.Location = new System.Drawing.Point(550, 252);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 34);
             this.button6.TabIndex = 24;
@@ -179,7 +180,7 @@
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button7.Location = new System.Drawing.Point(12, 167);
+            this.button7.Location = new System.Drawing.Point(12, 252);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 34);
             this.button7.TabIndex = 25;
@@ -190,7 +191,7 @@
             // button8
             // 
             this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button8.Location = new System.Drawing.Point(93, 167);
+            this.button8.Location = new System.Drawing.Point(93, 252);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(75, 34);
             this.button8.TabIndex = 27;
@@ -206,17 +207,28 @@
             this.batteryDisplay1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.batteryDisplay1.BatteryLevel = 40;
             this.batteryDisplay1.DrawPercNumber = true;
-            this.batteryDisplay1.Location = new System.Drawing.Point(309, 12);
+            this.batteryDisplay1.Location = new System.Drawing.Point(394, 12);
             this.batteryDisplay1.MakeTransparent = true;
             this.batteryDisplay1.Name = "batteryDisplay1";
             this.batteryDisplay1.Size = new System.Drawing.Size(231, 134);
             this.batteryDisplay1.TabIndex = 26;
             // 
+            // btnLogcat
+            // 
+            this.btnLogcat.Location = new System.Drawing.Point(107, 31);
+            this.btnLogcat.Name = "btnLogcat";
+            this.btnLogcat.Size = new System.Drawing.Size(75, 23);
+            this.btnLogcat.TabIndex = 28;
+            this.btnLogcat.Text = "Logcat Off";
+            this.btnLogcat.UseVisualStyleBackColor = true;
+            this.btnLogcat.Click += new System.EventHandler(this.btnLogcat_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 327);
+            this.ClientSize = new System.Drawing.Size(637, 412);
+            this.Controls.Add(this.btnLogcat);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.batteryDisplay1);
             this.Controls.Add(this.button7);
@@ -261,5 +273,6 @@
         private System.Windows.Forms.Button btnConnect;
         public BatteryDisplay batteryDisplay1;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnLogcat;
     }
 }
