@@ -210,12 +210,12 @@ namespace ADB_Helper
             {
                 AndroidDevice.NotificationEvent += AndroidDevice_NotificationEvent;
                 AndroidDevice.StartLogcatListener();
-                btnLogcat.Text = "Logcat Off";
+                btnLogcat.Text = "Logcat On";
             }
             else
             {
                 AndroidDevice.StopLogcatListener();
-                btnLogcat.Text = "Logcat On";
+                btnLogcat.Text = "Logcat Off";
             }
         }
 
