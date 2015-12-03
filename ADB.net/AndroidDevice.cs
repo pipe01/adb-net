@@ -333,23 +333,38 @@ namespace ADB.net
 
         private static void LogcatCallback()
         {
+            CConsole.GCFM("logcat").outputToLog = false;
             CConsole.GCFM("logcat").OutputReceived += (output, e) =>
             {
                 if (output.Contains("enqueueNotificationInternal"))
                 {
                     string[] split = output.Split();
-                    string package = split[1].Split('=')[1];
-                    int flags = int.Parse(split[8].Split('=')[1]);
-                    Notification n = new Notification(package, flags);
+
+                    string package = split[4].Split('=')[1];
+                    if (package == "android") return;
+
+                    string f1 = split[11];
+                    string f2 = f1.Split('=')[1];
+                    string f3 = f2.Substring(2);
+                    uint flags = 0;
+                    bool succ = uint.TryParse(f3, System.Globalization.NumberStyles.HexNumber, null, out flags);
+
+                    if (!succ) return;
+
+                    Notification n = new Notification(package, Convert.ToInt32(flags));
+
                     OnNotificationEvent(n);
+
                     n = null;
                 }
             };
+            CConsole.GCFM("logcat").ExecuteCommand("adb logcat");
         }
 
         public static void StartLogcatListener()
         {
             LogcatListener = new Thread(new ThreadStart(LogcatCallback));
+            LogcatListener.Start();
         }
         public static void StopLogcatListener()
         {
