@@ -110,12 +110,12 @@ namespace ADB_Helper
                 string fullpath = "/" + tvFileTree.SelectedNode.FullPath.Replace("\\", "/");
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    FileSystem.PullFile(fullpath, Path.GetDirectoryName(saveFileDialog.FileName), out progress);
-                    progressBar.Maximum = 100;
+                    FileSystem.PullFileAlt(fullpath, Path.GetDirectoryName(saveFileDialog.FileName), true);
+                    /*progressBar.Maximum = 100;
                     while (progress < 100)
                     {
                         progressBar.Value = progress;
-                    }
+                    }*/
                 }
             }
         }

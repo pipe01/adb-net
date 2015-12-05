@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -139,6 +140,21 @@ namespace ADB.net
             }
 
             return success;
+        }
+
+        public static void PullFileAlt(string remotePath, string localPath, bool su = false)
+        {
+            ManualResetEventSlim mre = new ManualResetEventSlim(false);
+
+            CConsole.GCFM("fs2").OutputReceived += (output, e) =>
+            {
+                if (output == "Done")
+                    mre.Set();
+            };
+
+            CConsole.GCFM("fs2").ExecuteCommand("adb shell \"" + (su ? "su -c " : null) + "cat '" + remotePath + "'\" > " + localPath + " & echo Done", true);
+
+            mre.Wait();
         }
 
         public static void PushFile(string dPath, string cPath)
