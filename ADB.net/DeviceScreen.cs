@@ -13,33 +13,6 @@ namespace ADB.net
     {
         public static Image TakeScreenshot()
         {
-            bool fin = false;
-            bool sc = false;
-            CConsole.GCFM("ss").OutputReceived += (output, e) => {
-                if (output.Contains("fin"))
-                    sc = true;
-                if (output.Contains("fin2"))
-                    fin = true;
-            };
-            CConsole.GCFM("ss").ExecuteCommand("adb shell screencap -p /mnt/sdcard/sc.png; echo fin");
-
-            while (!sc)
-                Application.DoEvents();
-
-            string cmd = "adb pull -p /mnt/sdcard/sc.png \"" + Path.GetDirectoryName(Application.ExecutablePath).Replace("\\", "/") + "/media\" & echo fin2";
-            CConsole.GCFM("ss").ExecuteCommand(cmd);
-
-            while (!fin)
-                Application.DoEvents();
-
-            Image img = Image.FromStream(new MemoryStream(File.ReadAllBytes("./media/sc.png")));
-
-            File.Delete("./media/sc.png");
-
-            return img;
-        }
-        public static Image TakeScreenshot2()
-        {
             try
             {
                 bool sc = false;
@@ -60,7 +33,6 @@ namespace ADB.net
             {
                 return null;
             }
-
         }
 
         public static void SimulateTap(int x, int y)
