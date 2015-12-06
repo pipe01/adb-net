@@ -139,7 +139,7 @@ namespace ADB.net
         {
             ManualResetEvent mre = new ManualResetEvent(false);
             AdbState ret = AdbState.Unknown;
-            /*CConsole.GCFM("devices").OutputReceived += (output, e) =>
+            CConsole.GCFM("devices").OutputReceived += (output, e) =>
             {
                 switch(output)
                 {
@@ -150,14 +150,14 @@ namespace ADB.net
             };
             CConsole.GCFM("devices").ExecuteCommand("adb get-state");
 
-            mre.WaitOne();*/
+            mre.WaitOne();
 
-            switch (Status)
+            /*switch (Status)
             {
                 case "offline": ret = AdbState.Offline; mre.Set(); break;
                 case "bootloader": ret = AdbState.Bootloader; mre.Set(); break;
                 case "device": ret = AdbState.Device; mre.Set(); break;
-            }
+            }*/
 
             return ret;
         }
@@ -364,14 +364,30 @@ namespace ADB.net
 
         public static void StartStatusListener()
         {
-            StatusListener = new Thread(new ThreadStart(StatusL));
-            StatusListener.Start();
+            /*StatusListener = new Thread(new ThreadStart(StatusL));
+            StatusListener.Start();*/
+            CConsole.GCFM("state").OutputReceived += (output, e) =>
+            {
+                if (output.StartsWith("State: "))
+                {
+                    pStatus = Status;
+                    Status = output.Split(' ')[1];
+                    if (pStatus != Status)
+                    {
+                        if (Status == "device")
+                        {
+                            OnDeviceConnected();
+                        }
+                    }
+                }
+            };
+            CConsole.GCFM("state").ExecuteCommand("adb status-window");
         }
 
         public static void StopStatusListener()
         {
-            StatusListener.Abort();
-            StatusListener = null;
+            /*StatusListener.Abort();
+            StatusListener = null;*/
         }
         #endregion
 
