@@ -330,42 +330,19 @@ namespace ADB.net
 
         #region Status Listener
         private static string Status, pStatus;
-        private static Thread StatusListener;
 
-        public delegate void DeviceConnectedDelegate();
-        public static event DeviceConnectedDelegate DeviceConnected;
-        private static void OnDeviceConnected()
+        public delegate void DeviceStateDelegate(bool connected);
+        public static event DeviceStateDelegate DeviceStateEvent;
+        private static void OnDeviceStateEvent(bool connected)
         {
-            if (DeviceConnected != null)
+            if (DeviceStateEvent != null)
             {
-                DeviceConnected();
+                DeviceStateEvent(connected);
             }
-        }
-
-        private static void StatusL()
-        {
-            CConsole.GCFM("status").OutputReceived += (output, e) =>
-            {
-                if (output.StartsWith("Status: "))
-                {
-                    pStatus = Status;
-                    Status = output.Split(' ')[1];
-                    if (pStatus != Status)
-                    {
-                        if (Status == "device")
-                        {
-                            OnDeviceConnected();
-                        }
-                    }
-                }
-            };
-            CConsole.GCFM("status").ExecuteCommand("adb status-window");
         }
 
         public static void StartStatusListener()
         {
-            /*StatusListener = new Thread(new ThreadStart(StatusL));
-            StatusListener.Start();*/
             CConsole.GCFM("state").OutputReceived += (output, e) =>
             {
                 if (output.StartsWith("State: "))
@@ -376,18 +353,14 @@ namespace ADB.net
                     {
                         if (Status == "device")
                         {
-                            OnDeviceConnected();
+                            OnDeviceStateEvent(true);
+                        } else {
+                            OnDeviceStateEvent(false);
                         }
                     }
                 }
             };
             CConsole.GCFM("state").ExecuteCommand("adb status-window");
-        }
-
-        public static void StopStatusListener()
-        {
-            /*StatusListener.Abort();
-            StatusListener = null;*/
         }
         #endregion
 

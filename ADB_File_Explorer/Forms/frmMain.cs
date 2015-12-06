@@ -35,14 +35,14 @@ namespace ADB_Helper
             trayIcon.Icon = this.Icon;
             ConsoleLog.LogWritten += Cconsole_LogWritten;
             LoadConfig();
-            AndroidDevice.DeviceConnected += AndroidDevice_DeviceConnected;
+            AndroidDevice.DeviceStateEvent += AndroidDevice_DeviceStateEvent;
             AndroidDevice.StartStatusListener();
             //updDevices_Tick(sender, e);
         }
 
-        private void AndroidDevice_DeviceConnected()
+        private void AndroidDevice_DeviceStateEvent(bool connected)
         {
-            MessageBox.Show("Device connected");
+            MessageBox.Show(connected.ToString()); // Placeholder
         }
 
         private delegate void AddLineDelegate(string line);
