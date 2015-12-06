@@ -1,4 +1,4 @@
-﻿namespace ADB_Helper.Forms
+﻿namespace ADB_Helper
 {
     partial class frmWaiting
     {
@@ -50,6 +50,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmWaiting";
             this.Text = "frmWaiting";
+            this.Load += new System.EventHandler(this.frmWaiting_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

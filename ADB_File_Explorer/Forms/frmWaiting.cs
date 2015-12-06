@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ADB_Helper.Forms
+namespace ADB_Helper
 {
     public partial class frmWaiting : Form
     {
         public frmWaiting()
         {
             InitializeComponent();
+        }
+
+        private void frmWaiting_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
