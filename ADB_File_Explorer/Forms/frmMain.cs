@@ -231,6 +231,16 @@ namespace ADB_Helper
             MessageBox.Show(notification.PackageName);
         }
 
+        private void customButton1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void customButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("pene");
+        }
+
         private void button8_Click_1(object sender, EventArgs e)
         {
             CConsole.KillAll();

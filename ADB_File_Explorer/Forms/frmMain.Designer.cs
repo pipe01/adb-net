@@ -46,8 +46,9 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
             this.btnLogcat = new System.Windows.Forms.Button();
+            this.customButton1 = new ADB_Helper.CustomButton();
+            this.batteryDisplay1 = new ADB_Helper.BatteryDisplay();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +84,7 @@
             // 
             // button5
             // 
+            this.button5.ForeColor = System.Drawing.Color.Black;
             this.button5.Location = new System.Drawing.Point(6, 48);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
@@ -111,6 +113,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.button5);
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(89, 79);
@@ -120,6 +123,7 @@
             // 
             // btnConnect
             // 
+            this.btnConnect.ForeColor = System.Drawing.Color.Black;
             this.btnConnect.Location = new System.Drawing.Point(6, 19);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
@@ -199,6 +203,30 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click_1);
             // 
+            // btnLogcat
+            // 
+            this.btnLogcat.Location = new System.Drawing.Point(107, 31);
+            this.btnLogcat.Name = "btnLogcat";
+            this.btnLogcat.Size = new System.Drawing.Size(75, 23);
+            this.btnLogcat.TabIndex = 28;
+            this.btnLogcat.Text = "Logcat Off";
+            this.btnLogcat.UseVisualStyleBackColor = true;
+            this.btnLogcat.Click += new System.EventHandler(this.btnLogcat_Click);
+            // 
+            // customButton1
+            // 
+            this.customButton1.BorderColor = System.Drawing.Color.DimGray;
+            this.customButton1.BorderWidth = 4;
+            this.customButton1.ButtonText = "rtstj";
+            this.customButton1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.customButton1.InsideColor = System.Drawing.Color.DarkSlateGray;
+            this.customButton1.Location = new System.Drawing.Point(256, 137);
+            this.customButton1.Name = "customButton1";
+            this.customButton1.Size = new System.Drawing.Size(69, 35);
+            this.customButton1.TabIndex = 29;
+            this.customButton1.Clicked += new System.EventHandler(this.customButton1_Click);
+            this.customButton1.Load += new System.EventHandler(this.customButton1_Load);
+            // 
             // batteryDisplay1
             // 
             this.batteryDisplay1.AC = false;
@@ -213,21 +241,13 @@
             this.batteryDisplay1.Size = new System.Drawing.Size(231, 134);
             this.batteryDisplay1.TabIndex = 26;
             // 
-            // btnLogcat
-            // 
-            this.btnLogcat.Location = new System.Drawing.Point(107, 31);
-            this.btnLogcat.Name = "btnLogcat";
-            this.btnLogcat.Size = new System.Drawing.Size(75, 23);
-            this.btnLogcat.TabIndex = 28;
-            this.btnLogcat.Text = "Logcat Off";
-            this.btnLogcat.UseVisualStyleBackColor = true;
-            this.btnLogcat.Click += new System.EventHandler(this.btnLogcat_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(637, 412);
+            this.Controls.Add(this.customButton1);
             this.Controls.Add(this.btnLogcat);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.batteryDisplay1);
@@ -274,5 +294,6 @@
         public BatteryDisplay batteryDisplay1;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button btnLogcat;
+        private CustomButton customButton1;
     }
 }
