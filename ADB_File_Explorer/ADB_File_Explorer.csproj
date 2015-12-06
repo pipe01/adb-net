@@ -107,6 +107,12 @@
     <Compile Include="Forms\frmAppManager.Designer.cs">
       <DependentUpon>frmAppManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmWaiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmWaiting.Designer.cs">
+      <DependentUpon>frmWaiting.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavBar.cs" />
     <Compile Include="Controls\NavBarControl.cs">
       <SubType>UserControl</SubType>
@@ -151,6 +157,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NavBarControl.resx">
       <DependentUpon>NavBarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmWaiting.resx">
+      <DependentUpon>frmWaiting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
