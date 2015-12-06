@@ -82,5 +82,11 @@ namespace ADB_Helper
         {
             AndroidDevice.TypeString(txtInputText.Text);
         }
+
+        private void touchScreen1_Resize(object sender, EventArgs e)
+        {
+            navBar1.Width = touchScreen1.Width;
+            navBar1.Top = touchScreen1.Height;
+        }
     }
 }

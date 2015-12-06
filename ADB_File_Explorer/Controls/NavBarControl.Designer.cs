@@ -46,7 +46,8 @@
             this.picBtn1.Size = new System.Drawing.Size(100, 67);
             this.picBtn1.TabIndex = 0;
             this.picBtn1.TabStop = false;
-            this.picBtn1.Click += new System.EventHandler(this.picBtn1_Click);
+            this.picBtn1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBtn1_MouseDown);
+            this.picBtn1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBtn1_MouseUp);
             // 
             // picBtn2
             // 
@@ -58,7 +59,8 @@
             this.picBtn2.Size = new System.Drawing.Size(100, 67);
             this.picBtn2.TabIndex = 1;
             this.picBtn2.TabStop = false;
-            this.picBtn2.Click += new System.EventHandler(this.picBtn2_Click);
+            this.picBtn2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBtn2_MouseDown);
+            this.picBtn2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBtn2_MouseUp);
             // 
             // picBtn3
             // 
@@ -70,7 +72,8 @@
             this.picBtn3.Size = new System.Drawing.Size(100, 67);
             this.picBtn3.TabIndex = 1;
             this.picBtn3.TabStop = false;
-            this.picBtn3.Click += new System.EventHandler(this.picBtn3_Click);
+            this.picBtn3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBtn3_MouseDown);
+            this.picBtn3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBtn3_MouseUp);
             // 
             // NavBarControl
             // 

@@ -291,13 +291,14 @@ namespace ADB.net
         /// Simulates a soft/hard key event on the device.
         /// </summary>
         /// <param name="keyevent">Key to be simulated. See http://developer.android.com/reference/android/view/KeyEvent.html </param>
-        public static void SimulateKeyEvent(string keyevent)
+        public static void SimulateKeyEvent(string keyevent, bool longPress = false)
         {
-            Update();
-            if (!AnyDevice) return;
+            //Update();
+            //if (!AnyDevice) return;
 
             CConsole.GCFM("input").ExecuteCommand("adb -s " + SelectedDeviceSerial +
-                                                " shell input keyevent " + keyevent);
+                                " shell input keyevent " +
+                                (longPress ? "--longpress " : "") + keyevent);
         }
 
         /// <summary>

@@ -75,6 +75,7 @@
             this.touchScreen1.Name = "touchScreen1";
             this.touchScreen1.Size = new System.Drawing.Size(270, 480);
             this.touchScreen1.TabIndex = 3;
+            this.touchScreen1.Resize += new System.EventHandler(this.touchScreen1_Resize);
             // 
             // navBar1
             // 
@@ -91,9 +92,9 @@
             this.groupBox1.Controls.Add(this.btnVolUp);
             this.groupBox1.Controls.Add(this.btnPower);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox1.Location = new System.Drawing.Point(289, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 556);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(88, 122);
+            this.groupBox1.Size = new System.Drawing.Size(271, 51);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hard buttons";
@@ -101,7 +102,7 @@
             // btnVolDown
             // 
             this.btnVolDown.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnVolDown.Location = new System.Drawing.Point(6, 91);
+            this.btnVolDown.Location = new System.Drawing.Point(190, 19);
             this.btnVolDown.Name = "btnVolDown";
             this.btnVolDown.Size = new System.Drawing.Size(75, 23);
             this.btnVolDown.TabIndex = 2;
@@ -112,7 +113,7 @@
             // btnVolUp
             // 
             this.btnVolUp.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnVolUp.Location = new System.Drawing.Point(6, 62);
+            this.btnVolUp.Location = new System.Drawing.Point(109, 19);
             this.btnVolUp.Name = "btnVolUp";
             this.btnVolUp.Size = new System.Drawing.Size(75, 23);
             this.btnVolUp.TabIndex = 1;
@@ -134,14 +135,14 @@
             // txtInputText
             // 
             this.txtInputText.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.txtInputText.Location = new System.Drawing.Point(383, 12);
+            this.txtInputText.Location = new System.Drawing.Point(290, 530);
             this.txtInputText.Name = "txtInputText";
             this.txtInputText.Size = new System.Drawing.Size(193, 20);
             this.txtInputText.TabIndex = 6;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(501, 38);
+            this.btnSend.Location = new System.Drawing.Point(408, 556);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 7;
@@ -149,12 +150,12 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // frmScreenshot
+            // frmRemoteControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(588, 558);
+            this.ClientSize = new System.Drawing.Size(493, 617);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtInputText);
             this.Controls.Add(this.groupBox1);
@@ -163,7 +164,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnStartStop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmScreenshot";
+            this.Name = "frmRemoteControl";
             this.Text = "Screenshot";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmScreenshot_FormClosing);
             this.Load += new System.EventHandler(this.frmScreenshot_Load);

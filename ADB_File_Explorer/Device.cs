@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace ADB_Helper
     {
         public string id, name, vendor;
         public NavBar navBar;
+        public Size resolution;
+        public float scale;
 
         public static Device LoadInstalled(string name)
         {
@@ -46,6 +49,15 @@ namespace ADB_Helper
                                 NavBar t = null;
                                 if (navs.TryGetValue(reader.Value, out t))
                                     dev.navBar = NavBar.GetAllAvailable()[reader.Value];
+                                break;
+                            case "res":
+                                reader.Read();
+                                string[] s = reader.Value.Split('x');
+                                dev.resolution = new Size(int.Parse(s[0]), int.Parse(s[1]));
+                                break;
+                            case "rem_scale":
+                                reader.Read();
+                                dev.scale = float.Parse(reader.Value);
                                 break;
                             default:
                                 break;
