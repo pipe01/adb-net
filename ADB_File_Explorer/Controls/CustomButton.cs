@@ -74,7 +74,7 @@ namespace ADB_Helper
 
             Graphics g = e.Graphics;
 
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             g.FillRectangle(new SolidBrush(iColor), new Rectangle(new Point(0, 0), this.Size));
             g.DrawRectangle(new Pen(borderColor),
