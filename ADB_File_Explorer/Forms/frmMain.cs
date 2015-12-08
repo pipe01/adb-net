@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ADB.net;
 using PiConfig;
@@ -37,12 +32,15 @@ namespace ADB_Helper
             LoadConfig();
             AndroidDevice.DeviceStateEvent += AndroidDevice_DeviceStateEvent;
             AndroidDevice.StartStatusListener();
-            //updDevices_Tick(sender, e);
         }
 
-        private void AndroidDevice_DeviceStateEvent(bool connected)
+        private void AndroidDevice_DeviceStateEvent(AndroidDevice.AdbState state)
         {
-            MessageBox.Show(connected.ToString()); // Placeholder
+            if (state != AndroidDevice.AdbState.Device)
+            {
+                this.Hide();
+                new frmWaiting(this).Show();
+            }
         }
 
         private delegate void AddLineDelegate(string line);
@@ -229,16 +227,6 @@ namespace ADB_Helper
         private void AndroidDevice_NotificationEvent(Notification notification)
         {
             MessageBox.Show(notification.PackageName);
-        }
-
-        private void customButton1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void customButton1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("pene");
         }
 
         private void button8_Click_1(object sender, EventArgs e)

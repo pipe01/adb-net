@@ -18,7 +18,7 @@ namespace ADB_Helper
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            new frmMain().Show();
+            new frmWaiting(new frmMain()).Show();
             Application.Run();
         }
     }

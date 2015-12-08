@@ -51,6 +51,7 @@
             this.Name = "frmWaiting";
             this.Text = "frmWaiting";
             this.Load += new System.EventHandler(this.frmWaiting_Load);
+            this.Shown += new System.EventHandler(this.frmWaiting_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

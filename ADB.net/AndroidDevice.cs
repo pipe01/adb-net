@@ -16,6 +16,13 @@ namespace ADB.net
         private static bool AnyDevice = false;
         private static void Update()
         {
+            pStatus = Status;
+            Status = GetState();
+            if (pStatus != Status)
+            {
+                OnDeviceStateEvent(Status);
+            }
+
             if (GetState() == AdbState.Device)
             {
                 AnyDevice = true;
@@ -139,16 +146,17 @@ namespace ADB.net
         {
             ManualResetEvent mre = new ManualResetEvent(false);
             AdbState ret = AdbState.Unknown;
-            CConsole.GCFM("devices").OutputReceived += (output, e) =>
+            CConsole.GCFM("state").OutputReceived += (output, e) =>
             {
                 switch(output)
                 {
                     case "offline": ret = AdbState.Offline; mre.Set(); break;
                     case "bootloader": ret = AdbState.Bootloader; mre.Set(); break;
                     case "device": ret = AdbState.Device; mre.Set(); break;
+                    case "unknown": mre.Set(); break;
                 }
             };
-            CConsole.GCFM("devices").ExecuteCommand("adb get-state");
+            CConsole.GCFM("state").ExecuteCommand("adb get-state");
 
             mre.WaitOne();
 
@@ -328,39 +336,42 @@ namespace ADB.net
             }
         }
 
-        #region Status Listener
-        private static string Status, pStatus;
+        public static void Forward(string local, string remote)
+        {
+            Update();
+            if (!AnyDevice) return;
 
-        public delegate void DeviceStateDelegate(bool connected);
+            CConsole.GCFM("ports").ExecuteCommand("adb -s " + SelectedDeviceSerial + " forward " + local + " " + remote);
+        }
+
+        #region Status Listener
+        private static AdbState Status, pStatus;
+
+        private static System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+            
+        public delegate void DeviceStateDelegate(AdbState state);
         public static event DeviceStateDelegate DeviceStateEvent;
-        private static void OnDeviceStateEvent(bool connected)
+        private static void OnDeviceStateEvent(AdbState state)
         {
             if (DeviceStateEvent != null)
             {
-                DeviceStateEvent(connected);
+                DeviceStateEvent(state);
             }
         }
 
         public static void StartStatusListener()
         {
-            CConsole.GCFM("state").OutputReceived += (output, e) =>
-            {
-                if (output.StartsWith("State: "))
-                {
-                    pStatus = Status;
-                    Status = output.Split(' ')[1];
-                    if (pStatus != Status)
-                    {
-                        if (Status == "device")
-                        {
-                            OnDeviceStateEvent(true);
-                        } else {
-                            OnDeviceStateEvent(false);
-                        }
-                    }
-                }
-            };
-            CConsole.GCFM("state").ExecuteCommand("adb status-window");
+            t.Interval = 10000;
+            t.Tick += T_Tick;
+            t.Enabled = true;
+        }
+
+        private static void T_Tick(object sender, EventArgs e)
+        {
+            pStatus = Status;
+            Status = GetState();
+            if (pStatus != Status)
+                OnDeviceStateEvent(Status);
         }
         #endregion
 
